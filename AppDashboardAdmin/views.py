@@ -14,23 +14,20 @@ from django.http import Http404
 def inicio(request):
 
     #!AGREGAR LA INFORMACION A LA PANTALLAD E INICIO
+    productos = Articulo.objects.all()
+    cantidad_Producto = productos.count()
 
-    pedido = Pedido.objects.filter(user=request.user)
-    detalle = DetallePedido.objects.filter(user=request.user)
-    cant_pedido = pedido.count()
+    pedidos = Pedido.objects.all()
+    cantidad_pedidos = pedidos.count()
 
-
-    direc = Direccion.objects.filter(user=request.user) 
-    cant_direc = direc.count()
-
-    cantidad_Producto = Articulo.objects.count()
-    cantidad_pedidos = Pedido.objects.count()
+    detalle = DetallePedido.objects.all()
 
 
     ctx = {
         'producto_cant':cantidad_Producto,
         'pedidos_cant': cantidad_pedidos,
-
+        'pedidos':pedidos,
+        'detalle':detalle,
     }
 
     return render(request,'dash_admin/inicio.html',ctx)
