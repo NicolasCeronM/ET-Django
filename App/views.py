@@ -54,5 +54,6 @@ def registrar(request):
     return render(request,'registration/registrar.html', data)
 
 def suscripcion(request):
+    
 
     return render(request,'ProyectoEtApp/suscripcion.html')
