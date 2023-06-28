@@ -13,6 +13,16 @@ from django.http import Http404
 @login_required
 def inicio(request):
 
+    #!AGREGAR LA INFORMACION A LA PANTALLAD E INICIO
+
+    pedido = Pedido.objects.filter(user=request.user)
+    detalle = DetallePedido.objects.filter(user=request.user)
+    cant_pedido = pedido.count()
+
+
+    direc = Direccion.objects.filter(user=request.user) 
+    cant_direc = direc.count()
+
     cantidad_Producto = Articulo.objects.count()
     cantidad_pedidos = Pedido.objects.count()
 
