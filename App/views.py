@@ -50,10 +50,11 @@ def registrar(request):
             messages.success(request,'Creado correctamente')
             return redirect(to='login')
         data['form'] = formulario
+        
 
     return render(request,'registration/registrar.html', data)
 
 def suscripcion(request):
-    
+
 
     return render(request,'ProyectoEtApp/suscripcion.html')
