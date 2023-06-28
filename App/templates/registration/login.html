@@ -1,0 +1,102 @@
+{% extends "ProyectoEtApp/base.html" %}
+{% load static %}
+
+{% block title %} Login {% endblock%}
+
+{% block content %}
+
+<!--Inicio de sesion-->
+<div class="container mt-3 mb-5 shadow rounded">
+
+    <div class="row align-items-stretch">
+
+        <div class="col d-none d-lg-block col-md-5 col-lg-5 col-xl-6">
+            <img src="{% static 'ProyectoEtApp/img/Logo/logo.jpg' %}" alt="" class="img-fluid shadow">
+
+        </div>
+
+        <div class="col">
+            <h1 class="fw-light text-center mt-5">Bienvenido</h1>
+            <form action="{% url 'login' %}" id="form-login" method="POST" class="user">
+                {% csrf_token %}
+
+                <div class="form-floating mt-4">
+                    <input type="text" class="form-control" id="idusername" placeholder="name@example.com"
+                        name="username">
+                    <label for="login-correo">Nombre de usuario</label>
+                    <div class="invalid-feedback">  
+                        <p id="fbCorreo">Ingrese Uusario valido</p>
+                    </div>
+                </div>
+                
+                <div class="form-floating mt-4">
+                    <input type="password" class="form-control" id="id_password" placeholder="password"
+                        name="password">
+                    <label for="floatingPassword">Contraseña</label>
+                    <div class="invalid-feedback">
+                        <P id="fbContra">Ingrese una contraseña valida (entre 5 y 12 digitos)</P>
+                    </div>
+                    <button class="btn mt-2" id="ver-contraseña" type="button">
+                        <i class="fa-regular fa-eye me-2" id="ver-icon"></i>Mostrar contraseña</button>
+                </div>
+    
+                <div class="d-grid gap-2 mt-4">
+                    <a href="#"> <!--{% url 'dashboard:dashboard' %}-->
+                        <button type="submit" class="btn btn-outline-success" id="login-enviar">Iniciar Sesión</button>
+                    </a>
+                </div>
+                <div class="mt-4">
+                    <span>No tienes cuenta? <a href="{% url 'registrar' %}">Registrate</a></span> <br>
+                    <span>Eres olividadizo? <a href="">Recuperar cuenta</a></span>
+
+                </div>
+            </form>
+
+            <div class="container w-100 my-5">
+                <div class="row text-center">
+                    <div class="col-12 mb-4">Iniciar Sesión</div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-outline-primary w-100">
+                            <div class="row align-items-center">
+                                <div class="col-2">
+                                    <i class="fa-brands fa-facebook fa-2xl" style="color: #005eff;"></i>
+                                </div>
+                                <div class="col-10 text-center">
+                                    Facebook
+                                </div>
+                            </div>
+
+                        </button>
+                    </div>
+
+                    <div class="col">
+                        <button class="btn btn-outline-danger w-100">
+                            <div class="row align-items-center">
+                                <div class="col-2">
+                                    <i class="fa-brands fa-google fa-2xl" style="color: #ff0000;"></i>
+                                </div>
+                                <div class="col-10 text-center">
+                                    Google
+                                </div>
+                            </div>
+
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="{% static 'ProyectoEtApp/js/iniciarSeccion.js' %}"></script>
+{% endblock %}

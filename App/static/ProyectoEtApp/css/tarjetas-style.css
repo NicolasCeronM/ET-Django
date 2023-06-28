@@ -1,0 +1,12 @@
+#contenedor{
+	
+}
+#tarjeta{
+	height: 10%;
+	padding: 1%;
+	border-radius: 18px;
+}
+.borde{
+	border: 1px solid red;
+}
+

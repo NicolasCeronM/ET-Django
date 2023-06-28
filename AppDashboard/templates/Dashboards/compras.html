@@ -1,0 +1,81 @@
+{% extends 'Dashboards/base-dash.html' %}
+{% load static %}
+
+{% block content %}
+
+<div id="page-content-wrapper">
+
+    <!-- * Boton-->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+            <h2 class="fs-2 m-0">Mis compras</h2>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <!-- * CONTENIDO PAGINA*-->
+
+    <div class="container-fluid px-4 ">
+
+        <div class="row d-flex justify-content-center align-items-center">
+
+            {% for pedido in pedido %}
+            <div class="col-lg-5 shadow m-2 p-3 rounded" style="background-color: white;">
+                <p>{{pedido.created_at}}</p>
+                <hr>
+                <p>ID de pedido: {{pedido.id}}</p>
+
+                {% for detalle in detalle_pedido %}
+                    
+                    {% if pedido.id == detalle.pedido.id  %}
+
+                        <ul>
+                            <li>{{detalle}} </li>
+                        </ul>
+
+                       
+                        
+                    {% endif %}
+
+                {% endfor %}
+                
+                <hr>
+
+                <p>Estado: </p>
+                    
+            </div>
+            {% endfor %}
+
+        </div>
+
+
+
+
+
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block js %}
+
+{% if messages %}
+{% for m in messages %}
+<script>
+    Swal.fire({
+        'title': 'Hecho',
+        'text': '{{m}}',
+        'icon': '{{m.tags}}'
+    })
+</script>
+{% endfor %}
+{% endif %}
+
+{% endblock js %}

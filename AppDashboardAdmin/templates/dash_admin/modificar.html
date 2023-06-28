@@ -1,0 +1,103 @@
+{% extends 'dash_admin/base_dash_admin.html' %}
+
+{% load static %}
+
+{% block title %} Modificar {% endblock %}
+
+{% block content %}
+
+
+<!-- todo Modal -->
+<div class="container" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="row">
+
+            
+
+            <!--* CUERPO *-->
+            <div class="container mt-3 border p-3" style="background-color: white;">
+                <form class="row p-2" action="{% url 'admin_page:modificar' producto.id %}" method="POST"  enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    <div class="mt-3 p-3">
+                        <h2 class="text-center mb-3">Modificar producto</h2>
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <div class=" mb-3">
+                            <label for="imagen" class="form-label">Imagen de producto</label>
+                            <input class="form-control" type="file" id="imagen" name="imagen">
+                        </div>
+
+                        <div class=" mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{producto.nombre}}"
+                                placeholder="Ingrese nombre del producto">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="desc" class="form-label">Descripcion</label>
+                            <textarea class="form-control" id="desc" rows="3" name="desc">{{producto.descripcion}}</textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <label for="" class="form-label">Seccion de producto</label>
+
+                        <select class="form-select mb-3" aria-label="Default select example" name="seccion">
+                            <option selected>Seleccione</option>
+                            <option {% if producto.seccion == "juguete" %} selected {% endif %} value="juguete">Juguete</option>
+                            <option {% if producto.seccion == "medicamento" %} selected {% endif %} value="medicamento">Medicamento</option>
+                            <option {% if producto.seccion == "comida" %} selected {% endif %} value="comida">Comida</option>
+                            <option {% if producto.seccion == "ropa" %} selected {% endif %} value="ropa">Ropa</option>
+                        </select>
+
+                        <div class=" mb-3">
+                            <label for="precio" class="form-label">Precio</label>
+                            <input type="number" class="form-control" id="precio" name="precio" placeholder="$$" value="{{producto.precio}}">
+                        </div>
+
+                        <div class=" mb-3">
+                            <label for="stock" class="form-label">Stock</label>
+                            <input type="number" class="form-control" id="stock" name="stock" value="{{producto.stock}}"
+                                placeholder="Ingrese cantidad de stock">
+                        </div>
+
+                    </div>
+
+                    
+
+                    <!--* FOOTER*-->
+                    <div class="">
+
+                        <hr>
+
+                        <a href="{% url 'admin_page:productos' %}">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        </a>
+                            <button type="submit" class="btn btn-success">Modificar</button>
+                    </div>
+
+                </form>
+
+
+            </div>
+
+
+
+    </div>
+</div>
+
+
+{% block js %}
+
+<script src="{% static 'js/app.js' %}"></script>
+    
+{% endblock js %}
+    
+
+
+{% endblock %}

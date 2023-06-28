@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  {% load static %}
+
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="Google Chrome dev">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--Importar Boostrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'ProyectoEtApp/css/MyStyle.css' %}">
+  <title> {% block title %} Bili Boi {% endblock %}</title>
+  <link rel="shortcut icon" href="{% static 'ProyectoEtApp/img/Logo/log-head.png' %}" type="image/x-icon">
+</head>
+
+
+<body>
+
+  <!--ENCABEZADO-->
+  <header class="mb-3">
+    <nav class="navbar " style="background-color: black">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'ProyectoEtApp/img/images.png' %}" alt="Logo" width="200" height="100"
+            class="d-inline-block align-text-top">
+        </a>
+
+        <!--Barra de navegacion-->
+        <nav class="navbar navbar-expand-lg navbar " style="background: black;">
+          <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav nav-underline">
+                <li class="nav-item">
+                  <a class="nav-link link-light" href="{% url 'index' %}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link link-light" href="{% url 'juguetes' %}">Juguetes</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link link-light" href="{% url 'medicamentos' %}">Medicamentos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link link-light" href="{% url 'comida' %}">Comida</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link link-light" href="{% url 'ropa' %}">Ropa</a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!--Link de encabezado-->
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <!--Mi cuenta-->
+            {% if request.user.is_authenticated %}
+
+            {% if request.user.is_staff%}
+            <a class="nav-link link-light mr-3" aria-current="page" href="{% url 'admin_page:inicio' %}">
+              <i class="fa-solid fa-circle-user fa-2xl" style="color: #fffafa;"></i>
+              {{user.username | upper}} (Admin)
+            </a>
+            {% else %}
+            <a class="nav-link link-light mr-3" aria-current="page" href="{% url 'dashboard:dashboard' %}">
+              <i class="fa-solid fa-circle-user fa-2xl" style="color: #fffafa;"></i>
+              {{user.username | upper}}
+            </a>
+            {% endif %}
+            {% else %}
+
+            <a class="nav-link link-light mr-3" aria-current="page" href="{% url 'dashboard:dashboard' %}">
+              <i class="fa-solid fa-circle-user fa-2xl" style="color: #fffafa;"></i>
+              Mi cuenta
+            </a>
+
+            {% endif %}
+          </li>
+          <!--Mi Carro-->
+          <!-- Button trigger modal -->
+          <li class="nav-item">
+            <button type="button" class="btn link-light" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              style="background-color: black;">
+              <i class="fa-solid fa-cart-shopping fa-2xl mr-2" style="color: #ffffff;"></i></i>Mi carrito
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+  </header>
+
+
+
+  <!--CONTENIDO DE LA PAGINA-->
+
+
+  {% block content %}
+
+
+
+
+  {% endblock %}
+
+  <!--FOOTER-->
+
+  <footer class="container-fluid mt-3">
+
+    <div class="row p-5 bg-black text-white justify-content-center">
+
+      <div class="col-lg-3">
+        <img src="{% static 'ProyectoEtApp/img/images.png' %}" alt="Imagen no encontrada" width="300" height="150"
+          class="img-fluid">
+        <hr>
+        <div class="col ">
+          <p class="fw-light">Somos tu tienda Pet Lover favorita. Ven y vive la mejor experiencia en atención al cliente
+            y asesoramiento
+          </p>
+        </div>
+      </div>
+
+      <div class="col">
+
+        <div class="row">
+
+          <!--Doinde encontrarnos-->
+
+          <div class="col-lg-4 col-sm-6">
+            <p class="fw-normal fs-3 mb-3 mt-3">Donde encontrarnos</p>
+
+            <div class="mb-2 ">
+              <i class="fa-solid fa-map-location-dot fa-lg" style="color: #ffffff;"></i>
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="">AV.
+                Dorsal 742</a>
+            </div>
+            <div class="mb-2 ">
+              <i class="fa-solid fa-map-location-dot fa-lg" style="color: #ffffff;"></i>
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="">AV.
+                Providencia 567</a>
+            </div>
+            <div class="mb-2 ">
+              <i class="fa-solid fa-map-location-dot fa-lg" style="color: #ffffff;"></i>
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="">
+                Alameda 780</a>
+            </div>
+          </div>
+
+
+          <!--Redes sociales-->
+
+
+
+          <div class="col-lg-4 col-sm-6">
+            <p class="fw-normal fs-3 mb-3 mt-3">Redes sociales</p>
+            <div class="mb-2 ">
+              <i class="fa-brands fa-instagram fa-lg" style="color: #ffffff;"></i>
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="https://www.instagram.com/">
+                Instagram</a>
+            </div>
+            <div class="mb-2 ">
+              <i class="fa-brands fa-facebook fa-lg"></i>
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="https://es-la.facebook.com/">
+                Faceook</a>
+            </div>
+            <div class="mb-2 ">
+              <i class="fa-brands fa-twitter fa-lg"></i>
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="https://twitter.com/?lang=es">
+                Twitter</a>
+            </div>
+          </div>
+
+
+          <!--Contacto-->
+
+          <div class="col-lg-4 col-sm-6">
+            <p class="fw-normal fs-3 mb-3 mt-3">Contactanos</p>
+            <div class="mb-2 ">
+              <i class="fa-brands fa-whatsapp fa-lg" style="color: #ffffff;"></i>
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="https://web.whatsapp.com/"> +56 9
+                87320847</a>
+            </div>
+            <div class="mb-2 ">
+              <i class="fa-regular fa-envelope fa-lg" style="color: #ffffff;"></i>
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="https://www.google.com/intl/es-419/gmail/about/">
+                B.boy@gmail.com</a>
+            </div>
+            <div class="mb-2 ">
+              <i class="fa-solid fa-phone fa-lg"></i>
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="">2
+                82663016</a>
+            </div>
+          </div>
+
+          <!--Servicio al cliente-->
+
+          <div class="col-lg-4 col-sm-6">
+            <p class="fw-normal fs-3 mb-3 mt-3">Servicio al cliente</p>
+            <div class="mb-2 ">
+              <i class="fa-brands fa-whatsapp fa-lg" style="color: #ffffff;"></i>
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="https://web.whatsapp.com/">
+                Términos y Condiciones</a>
+            </div>
+            <div class="mb-2 ">
+              <i class="fa-regular fa-envelope fa-lg" style="color: #ffffff;"></i>
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                href="https://www.google.com/intl/es-419/gmail/about/">
+                Orden de Servicio</a>
+            </div>
+            <div class="mb-2 ">
+              <i class="fa-regular fa-mobile fa-lg" style="color: #ffffff;"></i>
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="">
+                Representante Legal</a>
+            </div>
+            <div class="mb-2 ">
+              <i class="fa-regular fa-mobile fa-lg" style="color: #ffffff;"></i>
+              <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="">
+                Bases y Promociones</a>
+            </div>
+          </div>
+
+
+          <!--Mapa-->
+
+          <div class="col-lg-4 col-sm-6">
+            <p class="fw-normal fs-3 mb-3 mt-3">Tus sucursal mas cercana</p>
+            <iframe class="img-fluid"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d106631.0637149513!2d-70.82906876833586!3d-33.365302663879156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf414012dea5%3A0xcf77d164678e7974!2sSuperZoo!5e0!3m2!1ses!2scl!4v1682031583440!5m2!1ses!2scl"
+              width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+
+      <hr class="mt-4">
+      <!--Metodos de pago
+      -->
+
+      <div class="opacity-50">
+        <img src="{% static 'ProyectoEtApp/img/Logo/log-completo2.png' %}" alt="" class=" img-fluid rounded float-end"
+          width="" height="">
+      </div>
+    </div>
+  </footer>
+
+  <!-- TODO Modal carrito -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="background-color: white">
+
+        <!-- * Encabezado-->
+
+        <div class="modal-header text-black">
+          <h1 class="modal-title fs-2 fw-light" id="exampleModalLabel">Mi carro</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- * Cuerpo-->
+
+        <div class="modal-body text-black">
+
+          <div>
+            {% if request.session.carro.items %}
+            <table class="table text-center">
+              <thead>
+                <tr>
+                  <th class="fs-5">Imagen</th>
+                  <th class="fs-5">Nombre</th>
+                  <th class="fs-5">Precio</th>
+                  <th class="fs-5">Cantidad</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                {% for key,value in request.session.carro.items %}
+                <tr>
+                  <td class="col-2"><img src="{{value.imagen}}" alt="{{value.imagen}}" class="img-fluid"></td>
+                  <td class="col-4 fs-5 align-middle">{{value.nombre}}</td>
+                  <td class="col-3 fs-4 align-middle">${{value.precio}}</td>
+                  <td class="col-5 fs-5 align-middle">
+                    <a href="{% url 'carro:restar' value.producto_id  %}">-</a>
+                    {{value.cantidad}}
+                    <a href="{% url 'carro:agregar' value.producto_id %}">+</a>
+                  </td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+
+            </table>
+            <div class="me-5 ">
+              <p class="fs-4 me-5">Total: ${{importe_total_carro}} </p>
+            </div>
+            {% else %}
+            <p class="text-center opacity-50">Carro vacio</p>
+            {% endif %}
+
+          </div>
+
+        </div>
+        <!-- * FOOTER-->
+        <div class="modal-footer text-black">
+          <a href="{% url 'carro:limpiar' %}">
+
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Vaciar carro</button>
+
+          </a>
+
+          <!-- ? AL MOMENTO DE PRECIONAR LO MANDE AL APARTADO DE "MI CARRITO" EN EL DASHBOARD-->
+
+          <a href="{% url 'dashboard:carro' %}">
+            <button type="button" class="btn btn-outline-success">Comprar</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--TODO Fin modal carrito-->
+  <!--Importar jquery-->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+  <!--Importar Boostrap-->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+    integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+    integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+    crossorigin="anonymous"></script>
+  <!--Importar fonr awesome-->
+  <script src="https://kit.fontawesome.com/8cdff4000b.js" crossorigin="anonymous"></script>
+  <!--Swet alert-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  {% if messages %}
+    {% for m in messages %}
+      <script>
+        Swal.fire({
+          'title': 'Felicidades',
+          'text': '{{m}}',
+          'icon': '{{m.tags}}'
+        })
+      </script>
+    {% endfor %}
+  {% endif %}
+
+
+  {% block js %}
+
+  {% endblock %}
+
+
+</body>
+
+</html>

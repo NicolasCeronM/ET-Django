@@ -1,0 +1,131 @@
+{% extends 'Dashboards/base-dash.html' %}
+
+{% block title%} Carro {% endblock %}
+
+{% block content %}
+
+<div id="page-content-wrapper">
+
+    <!-- * Boton-->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+            <h2 class="fs-2 m-0">Mi carro</h2>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <!-- * CONTENIDO PAGINA*-->
+
+    <div class="container-fluid px-4 mt-5">
+
+        <div class="row">
+
+            <!--* TABLA DE PRODUCTOS *-->
+
+            <div class="col-lg-9 shadow  rounded table-responsive mb-4" style="background-color: white;">
+                {% if request.session.carro.items %}
+
+                <table class="table text-center ">
+                    <thead>
+                        <tr class="">
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for key,value in request.session.carro.items %}
+                        <tr class="fs-5">
+                            <td class="col-lg-1"><img src="{{value.imagen}}" alt="" class="img-fluid"></td>
+                            <td class="col-lg-3">
+                                <div class="align-self-center">
+                                    {{value.nombre}}
+                                </div>
+                            </td>
+                            <td class="col-lg-2">${{value.precio}}</td>
+                            <td class="col-lg-3 ">
+                                <a href="{% url 'carro:restar' value.producto_id %}"
+                                    class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">-</a>
+                                {{value.cantidad}}
+                                <a href="{% url 'carro:agregar' value.producto_id %}"
+                                    class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">+</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+                {% else %}
+
+                <div class="text-center">
+                    <p class="opacity-25">Carro vacio</p>
+                </div>
+
+                {% endif %}
+            </div>
+
+            <!--* DATOS DE COMPRA *-->
+
+            <div class="col-lg-3 ">
+
+                <div class="p-4 rounded" style="background-color: white;">
+
+                    <div class="mb-5">
+                        <h2>Resumen de compra</h2>
+                    </div>
+
+                    <div>
+                        <p>Sub total: ${{importe_total_carro}}</p>
+                        <p>Envio: $</p>
+                        <hr>
+                        <p class="">Total: ${{importe_total_carro}}</p>
+                    </div>
+
+
+                    {% if request.session.carro.items %}
+                        <a href="{% url 'pedido:procesar_pedido' %}">
+                            <div class="d-grid gap-2 mt-4">
+                                <button class="btn btn-primary" type="button">Comprar</button>
+                            </div>
+                        </a>
+                    {% else %}
+                        <div class="d-grid gap-2 mt-4">
+                            <button class="btn btn-primary" type="button" disabled>Comprar</button>
+                        </div>
+
+                    {% endif %}
+
+
+                    <a href="{% url 'carro:limpiar' %}">
+                        <div class="d-grid gap-2 mt-4">
+                            <button class="btn btn-primary" type="button">Vaciar carro</button>
+                        </div>
+                    </a>
+
+
+
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

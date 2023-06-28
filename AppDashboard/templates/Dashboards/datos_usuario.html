@@ -1,0 +1,115 @@
+{% extends "Dashboards/base-dash.html" %}
+{% load static %}
+
+{% block title %} Usuario {% endblock %}
+
+{% block content %}
+
+<div id="page-content-wrapper">
+
+    <!-- * Boton-->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+            <h2 class="fs-2 m-0">Datos de cuenta</h2>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <!-- * CONTENIDO PAGINA*-->
+
+    <div class="container-fluid px-4 mt-5">
+
+        <div class="row">
+
+            <div class="col p-4 shadow m-1" style="background-color: white;">
+
+
+                <h3>Informacion personal   <i class="fa-regular fa-address-card"></i></h3>
+                <hr>
+                <p>Nombre: {{request.user.first_name}}</p>
+                <p>Apellido: {{request.user.last_name}}</p>
+                <p>Correo: {{request.user.email}}</p>
+                <p>Nombre de usuario: {{request.user.username}}</p>
+                <p>ID de usuaio: {{request.user.id}}</p>
+
+                <hr>
+
+                <button class="btn btn-outline-primary">Editar</button>
+                
+            </div>
+
+            <div class="col p-4 shadow m-1" style="background-color: white;">
+
+
+                <h3>Informacion Direcciones <i class="fa-solid fa-house"></i></h3>
+                <hr>
+                
+                {% if direc %}
+                    <p>Cantidad: {{cant_direc}} </p>
+                    <p>Direccion:
+                    {% for i in direc %}
+                        {{i.nombre}} / {{i.direccion}} / {{i.comuna}} |
+                    {% endfor %}
+                    </p>
+                {% else %}
+                <div>
+                    <p class="text-center">Ninguna direccion registrada</p>
+                </div>
+                {% endif %}
+                <hr>
+
+                <a href="{% url 'dashboard:direcciones' %}">
+                    <button class="btn btn-outline-primary">Ir a direcciones</button>
+                </a>
+
+            </div>
+
+            <div class="col p-4 shadow m-1" style="background-color: white;">
+
+
+                <h3>Informacion de compras <i class="fa-solid fa-receipt"></i></h3>
+                <hr>
+                
+                {% if cant_pedido > 0 %}
+                    <div>
+                        <p>Cantidad: {{cant_pedido}}</p>
+                        <p>Correo de facturacion: {{request.user.email}} </p>
+                        <p>ID de compras: 
+                            
+                            {% for pedido in pedido %}
+                                {{pedido.id}} /
+                            {% endfor %}
+                                
+
+                        </p>
+                    </div>
+
+                {% else %}
+                    <div>
+                        <p class="text-center">Ninguna compra realizada</p>
+                    </div>
+                    
+                {% endif %}
+                <hr>
+                <a href="{% url 'pedido:pedidos' %}">
+                    <button class="btn btn-outline-primary">Ir a compras</button>
+                </a>
+
+            </div>
+
+        </div>
+
+        
+
+    </div>
+
+</div>
+
+{% endblock %}
+ 

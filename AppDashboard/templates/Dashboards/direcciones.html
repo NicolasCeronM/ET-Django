@@ -1,0 +1,153 @@
+{% extends 'Dashboards/base-dash.html' %}
+{% load static %}
+
+{% block title%} Direcciones {% endblock %}
+
+{% block content %}
+
+
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+            <h2 class="fs-2 m-0">Direcciones</h2>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <!--CONTENIDO DE LA PAGINA-->
+
+
+    <div class="container-fluid px-4" style="background-color: white;">
+
+        <div class="row justify-content-center shadow">
+
+            <h1 class="text-center p-3 fw-light">Mis direcciones</h1>
+
+            <div class="d-grid gap-2 d-md-block mb-3">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">
+                    <i class="fa-solid fa-plus me-2"></i>Nueva Direccion
+                </button>
+            </div>
+
+
+
+            <div class="table-responsive">
+
+                <table class="table table-striped text-center" id="tabla-direc">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Direccion</th>
+                            <th>Numero</th>
+                            <th>Region</th>
+                            <th>comuna</th>
+                            <th>Codigo postal</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="cuerpo-tabla">
+                        {% if direc %}
+                        {% for i in direc %}
+                        <tr>
+                            <th>{{i.id}}</th>
+                            <td>{{i.nombre}}</td>
+                            <td>{{i.direccion}}</td>
+                            <td>{{i.numero}}</td>
+                            <td>{{i.region}}</td>
+                            <td>{{i.comuna}}</td>
+                            <td>{{i.cod_postal}}</td>
+                            <td>
+                                <a href="#" onclick="eliminarProducto({{i.id}})"> <button class="btn btn-danger mb-1"><i
+                                            class="fa-solid fa-trash-can"></i></button></a>
+
+                                <a href="{% url 'dashboard:editar_direc' i.id%}"> <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal"
+                                        data-bs-target="#updateModal">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        {% else %}
+                        <td colspan="8">Ninguna direccion registrada</td>
+                        {% endif %}
+                    </tbody>
+
+
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+<!-- /#page-content-wrapper -->
+</div>
+
+<!-- TODO Modal Agregar -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    {% include 'Dashboards/direccion_agregar.html' %}
+</div>
+
+
+
+{% endblock %}
+
+
+{% block js %}
+<script src="{% static 'js/apisConecction.js' %}"></script>
+<script src="{% static 'js/validacion.js' %}"></script>
+
+<script>
+    function eliminarProducto(id) {
+
+        Swal.fire({
+            title: 'Estas seguro?',
+            text: "Eliminaras la direccion con id " + id,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Si, Borrar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                window.location = ('/dashboard/eliminar_direc/' + id + '/')
+            }
+        })
+
+    }
+</script>
+
+
+{% if messages %}
+{% for m in messages %}
+<script>
+    Swal.fire({
+        'title': 'Felicidades',
+        'text': '{{m}}',
+        'icon': 'success'
+    })
+</script>
+{% endfor %}
+{% endif %}
+
+
+
+{% endblock js %}

@@ -1,0 +1,108 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Nueva Direccion</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'dashboard:crear_direc' %}" id="form-new-direc" method="POST">
+
+                {% csrf_token %}
+                <div class="col">
+
+                    <div class="form-floating mb-3 is-invalid">
+                        <input type="text" class="form-control" id="nuevoNombre" placeholder="name@example.com"
+                            name="nuevoNombre">
+                        <label for="floatingInput">Nombre</label>
+
+                        <div class="invalid-feedback">
+                            Ingrese un nombre valido (3 o mas digitos)
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col">
+
+                    <div class="form-floating mb-3 is-invalid">
+                        <input type="text" class="form-control" id="nuevaDirec" placeholder="name@example.com"
+                            name="direc">
+                        <label for="floatingInput">Direccion</label>
+
+                        <div class="invalid-feedback">
+                            Ingrese una direccion valida (3 o mas digitos)
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col">
+
+                    <div class="form-floating mb-3 is-invalid">
+                        <input type="number" class="form-control" id="nuevoNum" placeholder="name@example.com"
+                            name="regNum">
+                        <label for="regNum">Numero</label>
+
+                        <div class="invalid-feedback">
+                            Ingrese un numero de direccion valida (4 numeros)
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col">
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="regRegion" aria-label="Floating label select example"
+                            name="regRegion">
+                            <option selected>Seleccione...</option>
+                        </select>
+                        <label for="regRegion">Region</label>
+                        <div class="invalid-feedback">
+                            Porfavor seleccione una region
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col">
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="regComuna" aria-label="Floating label select example"
+                            name="regComuna" disabled>
+                            <option selected>Seleccione una region</option>
+                        </select>
+                        <label for="regComuna">Comuna</label>
+                        <div class="invalid-feedback">
+                            Porfavor seleccione una comuna
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col">
+
+                    <div class="form-floating mb-3 is-invalid">
+                        <input type="number" class="form-control" id="nuevoCpo" placeholder="name@example.com"
+                            name="cpostalComuna">
+                        <label for="floatingInput">Codigo postal</label>
+
+                        <div class="invalid-feedback">
+                            Ingrese un codigo postal valido (7 numeros)
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-success" id="regNuevaDirec">Registrar</button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
