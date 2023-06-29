@@ -77,39 +77,37 @@
 
     <div class="row my-5">
         <h3 class="fs-4 mb-3">Nuevas ordenes</h3>
-        <div class="col">
-            <table class="table bg-white rounded shadow-sm  table-hover">
+        <div class="table-responsive-sm ">
+            <table class=" table table-striped text-center shadow" style="background-color: white;">
                 <thead>
                     <tr>
                         <th scope="col" width="50">ID</th>
-                        <th scope="col">Product</th>
+                        <th scope="col">Producto</th>
                         <th scope="col">Usuario</th>
                         <th scope="col">Fecha</th>
-                        <th scope="col">Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     
-                    {% for pedido in pedidos  %}
+                    {% if pedido %}
+                        {% for pedido in pedidos  %}
+                        <tr>
+                            <td>{{pedido.id}}</td>
+                            <td>    
+                                {% for i in detalle %}
+                                    {% if pedido.user == i.user %}
+                                        {{i}}  
+                                    {% endif %}  
+                                {% endfor %}           
+                            </td>
+                            <td>{{pedido.user}}</td>
+                            <td>{{pedido.created_at}}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                    <td colspan="4">Ninguna venta</td>
 
-                    <tr>
-                        <td>{{pedido.id}}</td>
-                        <td>
-                            {% if pedido.user_id == detalle.user_id %}
-                            <li>
-                                {{detalle}}
-                            </li>
-                            {% else %}
-                            nada
-                            {% endif %}
-                                
-
-                        </td>
-                        <td>{{pedido.user}}</td>
-                        <td>{{pedido.created_at}}</td>
-                    </tr>
-                        
-                    {% endfor %}
+                    {% endif %}
                         
                     
                 </tbody>

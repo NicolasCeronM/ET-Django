@@ -100,8 +100,6 @@
         }
     </script>
     <!--* /JS Globales *-->
-
-    {% block js %}
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -109,6 +107,9 @@
             el.classList.toggle("toggled");
         };
     </script>
+
+    {% block js %}
+    
     {% endblock %}
 
 

@@ -35,7 +35,7 @@ class DetallePedido(models.Model):
 
     def __str__(self):
 
-        return f'{self.cantidad} unidades de {self.producto.nombre}'
+        return f'{self.cantidad} unidades de {self.producto.nombre}, '
     
     class Meta:
         db_table = 'detalle_pedido' #Como se va a ver en la basen de datos
