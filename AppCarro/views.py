@@ -14,7 +14,6 @@ def agregar_producto(request,producto_id):
 
     carro.agregar(producto = producto)
 
-    
     return redirect("dashboard:carro")
 
 def eliminiar_producto(request,producto_id):
