@@ -17,15 +17,29 @@
         </div>
     </nav>
 
-    
+
 
     <!-- * CONTENIDO PAGINA*-->
 
     <div class="container-fluid px-4 mt-5">
 
-        <div class="row">
+        <div class="row" style="background-color: white;">
 
-            <div class="col table-responsive-sm rounded " style="background-color: white;">
+            <!--* ENCABEZADO (BOTONES) *-->
+
+            <div class="p-3">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#usuario_agregar">
+                    <i class="fa-solid fa-plus"></i>
+                    Nuevo Admin
+                </button>
+                <hr>
+            </div>
+
+            <!--Modal-->
+            {% include 'dash_admin/usuario_agregar.html' %}
+
+
+            <div class="col table-responsive-sm rounded">
 
                 <table class="table table-striped text-center shadow">
                     <thead>
@@ -35,6 +49,7 @@
                             <th class="col-1">Nombre</th>
                             <th class="col-1">Apellido</th>
                             <th class="col-2">Correo</th>
+                            <th class="col-2">Tipo de usuario</th>
                             <th class="col-2">Fecha de creacion</th>
                             <th class="col-2">Ultima conexion</th>
                             <th class="col-1">Opciones</th>
@@ -48,13 +63,20 @@
                         <tr>
                             <td>{{i.id}}</td>
                             <td>{{i.username}}</td>
-                            <td>{{i}}</td>
+                            <td>{{i.first_name}}</td>
                             <td>{{i.last_name}}</td>
                             <td>{{i.email}}</td>
+                            <td>
+                                {% if i.is_staff %}
+                                Administrador
+                                {% else %}
+                                General
+                                {% endif %}
+                            </td>
                             <td>{{i.date_joined}}</td>
                             <td>{{i.last_login}}</td>
                             <td>
-                                <a href="#" onclick="eliminarUser({{i.id}})"> <button class="btn btn-danger"><i
+                                <a href="#" onclick="eliminarUser({{i.id}})"> <button class="btn btn-danger mb-1"><i
                                             class="fa-solid fa-trash-can"></i></button></a>
 
                                 <a href="#"> <button class="btn btn-primary"><i
@@ -79,6 +101,7 @@
     </div>
 
 </div>
+
 
 
 {% block js %}
@@ -108,9 +131,31 @@
 
 
 </script>
-    
+
 {% endblock js %}
-    
+
+{% if messages %}
+    {% for m in messages %}
+        {% if m.tags == 'success'  %}    
+            <script>    
+                Swal.fire({
+                    'title':'Hecho',
+                    'text': '{{m}} {{m.tags}}',
+                    'icon': '{{m.tags}}'
+                })
+            </script>
+            {% else %}
+            <script>    
+                Swal.fire({
+                    'title':'Error',
+                    'text': '{{m}}',
+                    'icon': '{{m.tags}}'
+                })
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
 <!--Importar jquery-->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <!--CDN DE DATATABLE-->

@@ -1,45 +1,92 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from App.models import Articulo
+from App.forms import CustomUserForm
 from AppPedidos.models import Pedido, DetallePedido
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, UserManager
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import Http404
 
 # Create your views here.
 
-@login_required
+@login_required 
 def inicio(request):
 
-    #!AGREGAR LA INFORMACION A LA PANTALLAD E INICIO
-    productos = Articulo.objects.all()
-    cantidad_Producto = productos.count()
+    if request.user.is_staff:
 
-    pedidos = Pedido.objects.all()
-    cantidad_pedidos = pedidos.count()
-
-    detalle = DetallePedido.objects.all()
+        usuarios = User.objects.all()
+        user_cant = usuarios.count()
 
 
-    ctx = {
-        'producto_cant':cantidad_Producto,
-        'pedidos_cant': cantidad_pedidos,
-        'pedidos':pedidos,
-        'detalle':detalle,
-    }
+        productos = Articulo.objects.all()
+        cantidad_Producto = productos.count()
 
-    return render(request,'dash_admin/inicio.html',ctx)
+        pedidos = Pedido.objects.all()
+        cantidad_pedidos = pedidos.count()
+
+        detalle = DetallePedido.objects.all()
+
+
+        ctx = {
+            'producto_cant':cantidad_Producto,
+            'pedidos_cant': cantidad_pedidos,
+            'usuarios_cant': user_cant,
+            'pedidos':pedidos,
+            'detalle':detalle,
+        }
+
+        return render(request,'dash_admin/inicio.html',ctx)
+    else:
+        return redirect(to='index')
+
 
 @login_required
 def usuarios(request):
+    if request.method =='POST':
 
-    usuarios = User.objects.all()
+        username = request.POST.get('username')
+        contra = request.POST.get('pass1')
+        nombre = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
+        correo = request.POST.get('correo')
 
-    ctx = {'usuarios':usuarios}
+        if User.objects.filter(username=username).exists():
+            messages.error(request,'El usuario ya existe')
+             #Informacion de usuarioa
+            usuarios = User.objects.all()
 
-    return render (request,'dash_admin/usuarios.html',ctx)
+            ctx = {
+                'usuarios':usuarios,
+                'form':CustomUserForm(),
+            }
+            return render (request,'dash_admin/usuarios.html',ctx)
+        else:
+            user = User.objects.create_superuser(username=username, password=contra, email=correo, last_name = apellido, first_name = nombre)
+
+            user.save()
+
+            messages.success(request,'Usuario creado correctamente')
+            #Informacion de usuarioa
+            usuarios = User.objects.all()
+
+            ctx = {
+                'usuarios':usuarios,
+                'form':CustomUserForm(),
+            }
+
+            return render (request,'dash_admin/usuarios.html',ctx)
+    else:
+        #Informacion de usuarioa
+        usuarios = User.objects.all()
+
+        ctx = {
+            'usuarios':usuarios,
+            'form':CustomUserForm(),
+        }
+        return render(request,'dash_admin/usuarios.html',ctx)
+        
 
 @login_required
 def productos(request):
@@ -152,6 +199,7 @@ def eliminar_usuario(request,id):
     messages.success(request,'Usuario eliminado correctamente')
 
     return redirect(to='admin_page:usuarios')
+
 
 
 def salir(request):

@@ -6,10 +6,11 @@ from django.conf import settings
 app_name = "admin_page"
 
 urlpatterns = [
-
+    #Paginas principales
     path('', views.inicio, name='inicio'),
     path('usuarios/',views.usuarios,name='usuarios'),
-    path('productos/',views.productos, name='productos'),   
+    path('productos/',views.productos, name='productos'),  
+    #Acciones
     path('editar/<id>/',views.user_edit, name='editar'),
     path('modificar/<id>/',views.modificar_producto, name='modificar'),
     path('eliminar/<id>/',views.eliminar, name='eliminar'),

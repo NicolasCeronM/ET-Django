@@ -42,7 +42,9 @@ def registrar(request):
     }
 
     if request.method == 'POST':
+
         formulario = CustomUserForm(request.POST)
+        
         if formulario.is_valid():
             formulario.save()
             #Autenticar usuario

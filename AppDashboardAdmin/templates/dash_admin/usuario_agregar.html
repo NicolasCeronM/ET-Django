@@ -1,0 +1,72 @@
+<!-- Modal -->
+<div class="modal fade" id="usuario_agregar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo super usuario</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!--BODY-->
+            <div class="modal-body">
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col mx-auto p-3">
+
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" name="nombre">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" name="apellido">
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" name="correo">
+                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Nombre de usuario</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" name="username">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" name="pass1">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" name="pass2">
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <!--FOOTER-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                    </div>
+
+                </form>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
