@@ -1,0 +1,80 @@
+{% extends "dash_admin/base_dash_admin.html" %}
+
+{% load static %}
+
+{% block content %}
+<div id="page-content-wrapper">
+
+
+    <!-- * Boton-->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+            <h2 class="fs-2 m-0">Descuentos</h2>
+        </div>
+    </nav>
+
+
+    <!-- * CONTENIDO PAGINA*-->
+
+    <div class="container-fluid px-4 ">
+
+        <div>
+
+        </div>
+
+        <!--* Tabla *-->
+
+        <div class="p-3" style="background-color: white;">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Precio normal</th>
+                        <th>% de descuento</th>
+                        <th>Precio con descuento</th>
+                        <th>Fecha de termino</th>
+                    </tr>
+                </thead> 
+                    {% for i in descuentos %}
+                        <tr>
+                            <td>{{i.id}}</td>
+                            <td class="col-1">
+                                <img src="{{i.producto.imagen.url}}" alt="" class="img-fluid">
+                            </td>
+                            <td>{{i.producto.nombre}}</td>
+                            <td>{{i.producto.precio}}</td>
+                            <td>{{i.pct}}%</td>
+                            <td></td>
+                            <td>{{i.fec_ter}}</td>
+                        </tr>
+                    {% endfor %}
+                <tbody>
+
+                </tbody>
+            </table>
+
+        </div>
+
+
+
+
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}
+
+
+
+{% block js %}
+
+
+{% endblock %}

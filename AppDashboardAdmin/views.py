@@ -8,6 +8,7 @@ from django.contrib.auth.models import User, UserManager
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import Http404
+from AppDescuento.models import Descuento
 
 # Create your views here.
 
@@ -199,6 +200,17 @@ def eliminar_usuario(request,id):
     messages.success(request,'Usuario eliminado correctamente')
 
     return redirect(to='admin_page:usuarios')
+
+def descuento(request):
+
+    descuentos = Descuento.objects.all()
+    productos = Articulo.objects.all()
+
+
+    data = {
+        'descuentos': descuentos
+    }
+    return render(request,'descuento/descuento.html',data)
 
 
 

@@ -4,15 +4,25 @@ from django.contrib.auth import logout
 from .forms import CustomUserForm
 from django.contrib.auth import authenticate
 from django.contrib import messages
+from AppDescuento.models import Descuento
 
 # Create your views here.
 
 def index(request):
 
-    return render(request,'ProyectoEtApp/index.html')
+    descuentos = Descuento.objects.all()
+
+    data ={
+        'descuentos': descuentos
+    }
+
+
+    return render(request,'ProyectoEtApp/index.html', data)
 
 
 def juguestes(request):
+
+
 
     articulo = Articulo.objects.all()
 

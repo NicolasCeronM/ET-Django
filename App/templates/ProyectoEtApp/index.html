@@ -114,61 +114,30 @@
 
   <h1 class=" fs-1 fw-normal text-center p-3">Ofertas especiales</h1>
 
-  <div class="">
+  <div class="row">
 
-    <div id="carouselExample" class="carousel slide carousel-dark">
-      <div class="carousel-inner">
-        <div class="carousel-item active row">
+    {% for i in descuentos %}
 
+    <div class="card container mt-3 shadow" style="width: 18rem;">
+      <img src="{{i.producto.imagen.url}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{i.producto.nombre}}</h5>
+        <p class="card-text">{{i.producto.descripcion}}</p>
+        <p class="card-text text-danger fw-bold fs-5">$ {{i.producto.precio}}</p>
 
-          <div class="card container mt-3 shadow" style="width: 18rem; height: 400px;">
-            <img src="{% static 'ProyectoEtApp/img/Ropa/ro-07.webp' %}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Don cucho</h5>
-              <p class="card-text">$2.350</p>
-              <a href="#" class="btn btn-success">Agregar</a>
-            </div>
-          </div>
+        <!--* BOTON AGREGAR-->
 
+        <div class="d-grid gap-2 col-12 mx-auto">
+          <a href="{% url 'carro:agregar' i.producto.id %}">
+            <button class="btn btn-outline-success" type="button">Agregar</button>
+          </a>
         </div>
-        <div class="carousel-item">
 
-
-          <div class="card container mt-3 shadow" style="width: 18rem; height: 400px;">
-            <img src="{% static 'ProyectoEtApp/img/of-03.jpg' %}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Pedigree</h5>
-              <p class="card-text">$3.000</p>
-              <a href="#" class="btn btn-success">Agregar</a>
-            </div>
-          </div>
-
-
-        </div>
-        <div class="carousel-item">
-
-
-          <div class="card container mt-5 shadow" style="width: 18rem; height: 400px;">
-            <img src="{% static 'ProyectoEtApp/img/Comida/com-08.jpg' %}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Nutri-pel</h5>
-              <p class="card-text">$ 2.500</p>
-              <a href="#" class="btn btn-success">Agregar</a>
-            </div>
-          </div>
-
-
-        </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
+
+    {% endfor %}
+
   </div>
 
 </div>

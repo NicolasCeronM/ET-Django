@@ -15,6 +15,9 @@ class Articulo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.nombre}'
+
     class Meta:
         verbose_name = 'articulo'
         verbose_name_plural = 'articulos'

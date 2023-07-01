@@ -9,7 +9,8 @@ urlpatterns = [
     #Paginas principales
     path('', views.inicio, name='inicio'),
     path('usuarios/',views.usuarios,name='usuarios'),
-    path('productos/',views.productos, name='productos'),  
+    path('productos/',views.productos, name='productos'),
+    path('descuentos/',views.descuento, name='descuentos'),   
     #Acciones
     path('editar/<id>/',views.user_edit, name='editar'),
     path('modificar/<id>/',views.modificar_producto, name='modificar'),
