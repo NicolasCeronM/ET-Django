@@ -77,33 +77,7 @@
   <h1 class=" fs-1 fw-normal text-center p-3">Productos estrella</h1>
   <div class="row">
 
-    <div class="card container mt-3 shadow" style="width: 18rem; height: 420px;">
-      <img src="{% static 'ProyectoEtApp/img/of-02.jfif' %}" class="card-img-top" alt="...">
-      <div class="card-body d-grid gap-2">
-        <h5 class="card-title text-center">Don cucho</h5>
-        <p class="card-text text-center">$2.350</p>
-        <button class="btn btn-outline-success" type="button">Agregar</button>
-      </div>
-    </div>
-
-
-    <div class="card container mt-3 shadow" style="width: 18rem; height: 420px;">
-      <img src="{% static 'ProyectoEtApp/img/of-03.jpg' %}" class="card-img-top" alt="...">
-      <div class="card-body d-grid gap-2">
-        <h5 class="card-title text-center">Pedigree</h5>
-        <p class="card-text text-center">$3.000</p>
-        <button class="btn btn-outline-success" type="button">Agregar</button>
-      </div>
-    </div>
-
-    <div class="card container mt-3 shadow" style="width: 18rem; height: 420px;">
-      <img src="{% static 'ProyectoEtApp/img/of-04.jpg' %}" class="card-img-top" alt="...">
-      <div class="card-body d-grid gap-2">
-        <h5 class="card-title text-center">Nutri-pel</h5>
-        <p class="card-text text-center">$ 2.500</p>
-        <button class="btn btn-outline-success" type="button">Agregar</button>
-      </div>
-    </div>
+    <!--! INGRESAR DATOS-->
 
   </div>
 </div>
@@ -111,9 +85,7 @@
 
 <!--Productos oferta con carrusel-->
 <div class="container mt-3">
-
   <h1 class=" fs-1 fw-normal text-center p-3">Ofertas especiales</h1>
-
   <div class="row">
 
     {% for i in descuentos %}
@@ -139,7 +111,6 @@
     {% endfor %}
 
   </div>
-
 </div>
 
 {% endblock %}
