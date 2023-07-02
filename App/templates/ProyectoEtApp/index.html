@@ -4,12 +4,9 @@
 
 {% block content %}
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.css">
 
-
-
-<!--CONTENIDO DE LA PAGINA-->
-<!--CARRUSEL-->
-
+<!--todo| CARRUSEL PRINCIPAL |-->
 <div id="carouselExampleInterval" class="carousel slide mt-3" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active" data-bs-interval="5000">
@@ -32,6 +29,7 @@
   </button>
 </div>
 
+<!--todo | PROMOCION DE PAGINA |-->
 <div class="container mt-3">
 
   <div class="row ">
@@ -69,10 +67,8 @@
   </div>
 </div>
 
-</div>
 
-
-<!--Productos-->
+<!--todo | Productos |-->
 <div class="container mt-3">
   <h1 class=" fs-1 fw-normal text-center p-3">Productos estrella</h1>
   <div class="row">
@@ -83,34 +79,64 @@
 </div>
 
 
-<!--Productos oferta con carrusel-->
-<div class="container mt-3">
-  <h1 class=" fs-1 fw-normal text-center p-3">Ofertas especiales</h1>
-  <div class="row">
+<!--todo| CARRUSEL PRODUCTOS EN OFERTA |-->
 
-    {% for i in descuentos %}
+<div class="container">
 
-    <div class="card container mt-3 shadow" style="width: 18rem;">
-      <img src="{{i.producto.imagen.url}}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">{{i.producto.nombre}}</h5>
-        <p class="card-text">{{i.producto.descripcion}}</p>
-        <p class="card-text text-danger fw-bold fs-5">$ {{i.producto.precio}}</p>
+  <p class="fs-1 fw-normal text-center p-3">Ofertas especiales</p>
 
-        <!--* BOTON AGREGAR-->
+  <div class="carousel">
+    <div class="row d-flex align-items-center justify-content-center carousel__contenedor ">
 
-        <div class="d-grid gap-2 col-12 mx-auto">
-          <a href="{% url 'carro:agregar' i.producto.id %}">
-            <button class="btn btn-outline-success" type="button">Agregar</button>
-          </a>
+      <button aria-label="Anterior" class="col-1 anterior btn btn-light"><i class="fa-solid fa-chevron-left"></i></button>
+
+      <div class="col-10 carousel__lista">
+
+        {% for i in descuentos %}
+        <div class="carousel__elemento">
+
+          <div class="card container m-3 shadow" style="width: 18rem;">
+            <img src="{{i.producto.imagen.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{i.producto.nombre}}</h5>
+              <p class="card-text">{{i.producto.descripcion}}</p>
+              <p class="card-text text-danger fw-bold fs-5">$ {{i.producto.precio}}</p>
+
+              <!--* BOTON AGREGAR-->
+
+              <div class="d-grid gap-2 col-12 mx-auto">
+                <a href="{% url 'carro:agregar' i.producto.id %}">
+                  <button class="btn btn-outline-success" type="button">Agregar</button>
+                </a>
+              </div>
+
+            </div>
+          </div>
+
         </div>
 
+        {% endfor %}
+
       </div>
+
+      <button aria-label="Anterior" class="col-1 siguiente btn btn-light"><i class="fa-solid fa-chevron-right"></i></button>
+
     </div>
 
-    {% endfor %}
+    <div role="tablist" class="carousel__indicadores">
+
+    </div>
 
   </div>
 </div>
 
+
 {% endblock %}
+
+
+{% block js %}
+
+<script src="{% static 'ProyectoEtApp/js/carousel.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.js"></script>
+
+{% endblock js %}
