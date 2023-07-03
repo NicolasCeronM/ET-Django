@@ -90,7 +90,7 @@
                 </thead>
                 <tbody>
                     
-                    {% if pedido %}
+                    {% if pedidos %}
                         {% for pedido in pedidos  %}
                         <tr>
                             <td>{{pedido.id}}</td>
@@ -105,6 +105,7 @@
                             <td>{{pedido.created_at}}</td>
                         </tr>
                         {% endfor %}
+
                     {% else %}
                     <td colspan="4">Ninguna venta</td>
 

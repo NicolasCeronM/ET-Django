@@ -81,6 +81,10 @@
 
 <!--todo| CARRUSEL PRODUCTOS EN OFERTA |-->
 
+{% if descuentos %}
+
+
+
 <div class="container">
 
   <p class="fs-1 fw-normal text-center p-3">Ofertas especiales</p>
@@ -88,24 +92,30 @@
   <div class="carousel">
     <div class="row d-flex align-items-center justify-content-center carousel__contenedor ">
 
-      <button aria-label="Anterior" class="col-1 anterior btn btn-light"><i class="fa-solid fa-chevron-left"></i></button>
+      <button aria-label="Anterior" class="col-1 anterior btn btn-light"><i
+          class="fa-solid fa-chevron-left"></i></button>
 
       <div class="col-10 carousel__lista">
 
-        {% for i in descuentos %}
+        {% for producto in productos %}
+        {% for descuento in descuentos %}
+        {% if producto.id == descuento.producto.id %}
         <div class="carousel__elemento">
 
-          <div class="card container m-3 shadow" style="width: 18rem;">
-            <img src="{{i.producto.imagen.url}}" class="card-img-top" alt="...">
+          <div class="card container m-3 p-2 shadow" style="width: 18rem;">
+            <img src="{{producto.imagen.url}}" class="img-fluid" alt="...">
             <div class="card-body">
-              <h5 class="card-title">{{i.producto.nombre}}</h5>
-              <p class="card-text">{{i.producto.descripcion}}</p>
-              <p class="card-text text-danger fw-bold fs-5">$ {{i.producto.precio}}</p>
+              <h5 class="card-title">{{producto.nombre}}</h5>
+              <p class="card-text">{{producto.descripcion}}</p>
+
+              <s class="text-danger">${{descuento.producto.precio}}</s>
+              <p class="card-text text-danger fw-bold fs-5">$ {{producto.precio}}</p>
+
 
               <!--* BOTON AGREGAR-->
 
               <div class="d-grid gap-2 col-12 mx-auto">
-                <a href="{% url 'carro:agregar' i.producto.id %}">
+                <a href="{% url 'carro:agregar' producto.id %}">
                   <button class="btn btn-outline-success" type="button">Agregar</button>
                 </a>
               </div>
@@ -114,12 +124,14 @@
           </div>
 
         </div>
-
+        {% endif %}
+        {% endfor %}
         {% endfor %}
 
       </div>
 
-      <button aria-label="Anterior" class="col-1 siguiente btn btn-light"><i class="fa-solid fa-chevron-right"></i></button>
+      <button aria-label="Anterior" class="col-1 siguiente btn btn-light"><i
+          class="fa-solid fa-chevron-right"></i></button>
 
     </div>
 
@@ -129,6 +141,7 @@
 
   </div>
 </div>
+{% endif %}
 
 
 {% endblock %}

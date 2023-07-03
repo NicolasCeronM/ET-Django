@@ -11,12 +11,17 @@ from AppDescuento.models import Descuento
 def index(request):
 
     descuentos = Descuento.objects.all()
-    # Agrupar los descuentos en sublistas de a tres elementos
-    descuentos_por_slide = [descuentos[i:i+4] for i in range(0, len(descuentos), 4)]
+    productos = Articulo.objects.all()
+
+    for producto in productos:
+        for descuento in descuentos:
+            if producto == descuento.producto:
+                producto.precio = round(producto.precio - (producto.precio * descuento.pct) / 100)
+
 
     data ={
-        'descuentos_por_slide': descuentos_por_slide,
-        'descuentos': descuentos
+        'descuentos': descuentos,
+        'productos':productos
     }
 
 
