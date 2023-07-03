@@ -31,7 +31,7 @@
                         class="fas fa-tachometer-alt me-2"></i>Inicio</a>
                 <a href="{% url 'admin_page:usuarios' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold
                 {% if request.path == '/dash_admin/usuarios/' %} active {% endif %}"><i
-                        class="fas fa-project-diagram me-2"></i>Usuarios</a>
+                        class="fa-solid fa-user me-2"></i>Usuarios</a>
 
                 <a href="{% url 'admin_page:productos' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold
                         {% if request.path == '/dash_admin/productos/' %} active {% endif %}">
@@ -40,6 +40,10 @@
                 <a href="{% url 'admin_page:descuentos' %}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold
                     {% if request.path == '/dash_admin/descuentos/' %} active {% endif %}">
                     <i class="fa-solid fa-percent me-2"></i>Descuentos</a>
+
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold
+                    {% if request.path == 'suscripcion/' %} active {% endif %}">
+                    <i class="fa-solid fa-handshake me-2"></i>Planes mensuales</a>
 
                 <a href="#" onclick="cerrarSesion()"
                     class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i

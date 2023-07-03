@@ -40,18 +40,23 @@
                         <th>Fecha de termino</th>
                     </tr>
                 </thead> 
-                    {% for i in descuentos %}
+                    {% for producto in productos %}
+                        {% for descuento in descuentos %}
+                        
+                        {% if producto.id == descuento.producto.id %}     
                         <tr>
-                            <td>{{i.id}}</td>
+                            <td>{{producto.id}}</td>
                             <td class="col-1">
-                                <img src="{{i.producto.imagen.url}}" alt="" class="img-fluid">
+                                <img src="{{producto.imagen.url}}" alt="" class="img-fluid">
                             </td>
-                            <td>{{i.producto.nombre}}</td>
-                            <td>{{i.producto.precio}}</td>
-                            <td>{{i.pct}}%</td>
-                            <td></td>
-                            <td>{{i.fec_ter}}</td>
+                            <td>{{producto.nombre}}</td>
+                            <td>$ {{descuento.producto.precio}}</td>
+                            <td>{{descuento.pct}}%</td>
+                            <td>$ {{producto.precio}}</td>
+                            <td>{{descuento.fec_ter}}</td>
                         </tr>
+                        {% endif %}
+                        {% endfor %}
                     {% endfor %}
                 <tbody>
 

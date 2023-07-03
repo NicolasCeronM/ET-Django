@@ -62,7 +62,7 @@ def usuarios(request):
                 'usuarios':usuarios,
                 'form':CustomUserForm(),
             }
-            return render (request,'dash_admin/usuarios.html',ctx)
+            return render (request,'usuarios/usuarios.html',ctx)
         else:
             user = User.objects.create_superuser(username=username, password=contra, email=correo, last_name = apellido, first_name = nombre)
 
@@ -77,7 +77,7 @@ def usuarios(request):
                 'form':CustomUserForm(),
             }
 
-            return render (request,'dash_admin/usuarios.html',ctx)
+            return render (request,'usuarios/usuarios.html',ctx)
     else:
         #Informacion de usuarioa
         usuarios = User.objects.all()
@@ -86,7 +86,7 @@ def usuarios(request):
             'usuarios':usuarios,
             'form':CustomUserForm(),
         }
-        return render(request,'dash_admin/usuarios.html',ctx)
+        return render(request,'usuarios/usuarios.html',ctx)
         
 
 @login_required
@@ -107,7 +107,7 @@ def productos(request):
     }
 
     if request.method != 'POST':
-        return render(request,'dash_admin/productos.html',ctx)
+        return render(request,'productos/productos.html',ctx)
     else:
         imagen = request.FILES.get('imagen')
         nombre = request.POST['nombre']
@@ -134,16 +134,16 @@ def user_edit(request, id):
     if id != "":
         producto = Articulo.objects.get(id = id)
         context = {"producto": producto}
-        return render(request, "dash_admin/modificar.html", context)
+        return render(request, "productos/modificar.html", context)
     else:
         context = {"mensaje": "Error, usuario no encontrado"}
-        return render(request, "dash_admin/productos.html", context)
+        return render(request, "productos/productos.html", context)
     
 @login_required
 def modificar_producto(request,id):
 
     if request.method != 'POST':
-        return render(request,'dash_admin/productos.html')
+        return render(request,'productos/productos.html')
     else:
 
 
@@ -181,7 +181,7 @@ def modificar_producto(request,id):
 
         messages.success(request,'Modificado correctamente')
 
-        return render(request,'dash_admin/productos.html',ctx)
+        return render(request,'productos/productos.html',ctx)
 
 
 @login_required
@@ -206,9 +206,15 @@ def descuento(request):
     descuentos = Descuento.objects.all()
     productos = Articulo.objects.all()
 
+    for producto in productos:
+        for descuento in descuentos:
+            if producto == descuento.producto:
+                producto.precio = round(producto.precio - (producto.precio * descuento.pct) / 100)
 
-    data = {
-        'descuentos': descuentos
+
+    data ={
+        'descuentos': descuentos,
+        'productos':productos
     }
     return render(request,'descuento/descuento.html',data)
 
