@@ -4,11 +4,12 @@ from App.forms import CustomUserForm
 from AppPedidos.models import Pedido, DetallePedido
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from django.contrib.auth.models import User, UserManager
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import Http404
 from AppDescuento.models import Descuento
+from Appsuscripciones.models import Plan, Suscripcion
 
 # Create your views here.
 
@@ -26,8 +27,9 @@ def inicio(request):
 
         pedidos = Pedido.objects.all()
         cantidad_pedidos = pedidos.count()
-
         detalle = DetallePedido.objects.all()
+
+        cantidad_suscritos = Suscripcion.objects.count()
 
 
         ctx = {
@@ -36,6 +38,7 @@ def inicio(request):
             'usuarios_cant': user_cant,
             'pedidos':pedidos,
             'detalle':detalle,
+            'suscritos_cant':cantidad_suscritos,
         }
 
         return render(request,'dash_admin/inicio.html',ctx)
@@ -55,12 +58,14 @@ def usuarios(request):
 
         if User.objects.filter(username=username).exists():
             messages.error(request,'El usuario ya existe')
-             #Informacion de usuarioa
+
             usuarios = User.objects.all()
+            suscripciones = Suscripcion.objects.all()
 
             ctx = {
                 'usuarios':usuarios,
                 'form':CustomUserForm(),
+                'suscripciones':suscripciones
             }
             return render (request,'usuarios/usuarios.html',ctx)
         else:
@@ -71,20 +76,24 @@ def usuarios(request):
             messages.success(request,'Usuario creado correctamente')
             #Informacion de usuarioa
             usuarios = User.objects.all()
+            suscripciones = Suscripcion.objects.all()
 
             ctx = {
                 'usuarios':usuarios,
                 'form':CustomUserForm(),
+                'suscripciones':suscripciones,
             }
 
             return render (request,'usuarios/usuarios.html',ctx)
     else:
         #Informacion de usuarioa
         usuarios = User.objects.all()
+        suscripciones = Suscripcion.objects.all()
 
         ctx = {
             'usuarios':usuarios,
             'form':CustomUserForm(),
+            'suscripciones':suscripciones
         }
         return render(request,'usuarios/usuarios.html',ctx)
         
@@ -217,6 +226,42 @@ def descuento(request):
         'productos':productos
     }
     return render(request,'descuento/descuento.html',data)
+
+def planes(request):
+
+    if request.method != 'POST':
+        planes = Plan.objects.all()
+
+        data = {
+            'planes': planes
+        }
+        return render(request,'suscripciones/planes.html',data)
+    else:
+        
+        newPlan =  Plan.objects.create(
+            nombre = request.POST.get('nombre'),
+            precio = request.POST.get('precio'),
+        )
+
+        newPlan.save()
+
+        planes = Plan.objects.all()
+
+        data = {
+            'planes': planes
+        }
+
+        messages.success(request,'Plan creado correctamente')
+
+        return render(request,'suscripciones/planes.html',data)
+    
+def eliminar_plan(request,id):
+
+    plan = get_object_or_404(Plan, id=id)
+    plan.delete()
+    messages.success(request,'Eliminado correctamente')
+
+    return redirect(to='admin_page:planes')
 
 
 

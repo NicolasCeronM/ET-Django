@@ -44,15 +44,16 @@
                 <table class="table table-striped text-center shadow">
                     <thead>
                         <tr>
-                            <th class="col-1">ID</th>
-                            <th class="col-1">Nombre de usuario</th>
-                            <th class="col-1">Nombre</th>
-                            <th class="col-1">Apellido</th>
-                            <th class="col-2">Correo</th>
-                            <th class="col-2">Tipo de usuario</th>
-                            <th class="col-2">Fecha de creacion</th>
-                            <th class="col-2">Ultima conexion</th>
-                            <th class="col-1">Opciones</th>
+                            <th class="col">ID</th>
+                            <th class="col">Nombre de usuario</th>
+                            <th class="col">Nombre</th>
+                            <th class="col">Apellido</th>
+                            <th class="col">Correo</th>
+                            <th class="col">Tipo de usuario</th>
+                            <th class="col">Suscripcion</th>
+                            <th class="col">Fecha de creacion</th>
+                            <th class="col">Ultima conexion</th>
+                            <th class="col">Opciones</th>
                         </tr>
                     </thead>
 
@@ -73,10 +74,20 @@
                                 General
                                 {% endif %}
                             </td>
+                            <td>
+                                
+                                {% for s in suscripciones %}    
+                                {% if i == s.user %}
+                                    {{s.plan.nombre}}
+                                {% else %}
+                                    No se encuentra suscrito   
+                                {% endif %}
+                                {% endfor %}
+                            </td>
                             <td>{{i.date_joined}}</td>
                             <td>{{i.last_login}}</td>
                             <td>
-                                <a href="#" onclick="eliminarUser({{i.id}})"> <button class="btn btn-danger mb-1"><i
+                                <a href="#" onclick="eliminarUser({{i.id}})"> <button class="btn btn-danger"><i
                                             class="fa-solid fa-trash-can"></i></button></a>
 
                                 <a href="#"> <button class="btn btn-primary"><i
