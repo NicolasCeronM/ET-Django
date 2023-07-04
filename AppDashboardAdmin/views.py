@@ -46,7 +46,6 @@ def inicio(request):
     else:
         return redirect(to='index')
 
-
 @login_required
 def usuarios(request):
     if request.method =='POST':
@@ -98,7 +97,6 @@ def usuarios(request):
         }
         return render(request,'usuarios/usuarios.html',ctx)
         
-
 @login_required
 def productos(request):
 
@@ -193,7 +191,6 @@ def modificar_producto(request,id):
 
         return render(request,'productos/productos.html',ctx)
 
-
 @login_required
 def eliminar(request,id):
 
@@ -215,15 +212,24 @@ def descuento(request):
 
     descuentos = Descuento.objects.all()
     productos = Articulo.objects.all()
-
+    
     for producto in productos:
         for descuento in descuentos:
             if producto == descuento.producto:
                 producto.precio = round(producto.precio - (producto.precio * descuento.pct) / 100)
 
+    page = request.GET.get('page',1)
+
+    try:
+        paginator = Paginator(descuentos,5)
+        descuentos = paginator.page(page)
+    except:
+        raise Http404
+
 
     data ={
-        'descuentos': descuentos,
+        'entity':descuentos,
+        'paginator': paginator,
         'productos':productos
     }
     return render(request,'descuento/descuento.html',data)
@@ -247,7 +253,13 @@ def nuevo_descuento(request):
         messages.success(request,'Desceunto creado')
         return redirect(to='admin_page:descuentos')
 
+def eliminar_descuento(request,id):
 
+    descuento = get_object_or_404(Descuento, id=id)
+    descuento.delete()
+    messages.success(request,'Eliminado correctamente')
+
+    return redirect(to='admin_page:descuentos') 
 
 def planes(request):
 
@@ -284,8 +296,6 @@ def eliminar_plan(request,id):
     messages.success(request,'Eliminado correctamente')
 
     return redirect(to='admin_page:planes')
-
-
 
 def salir(request):
 

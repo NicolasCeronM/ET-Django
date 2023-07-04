@@ -12,7 +12,6 @@ urlpatterns = [
     path('productos/',views.productos, name='productos'),
     path('descuentos/',views.descuento, name='descuentos'), 
     path('planes/',views.planes, name='planes'),
-
     #Acciones
     path('editar/<id>/',views.user_edit, name='editar'),
     path('modificar/<id>/',views.modificar_producto, name='modificar'),
@@ -20,6 +19,7 @@ urlpatterns = [
     path('eliminar_user/<id>/',views.eliminar_usuario, name='eliminar_user'),
     #Acciones de descuento
     path('nuevo_descuento/', views.nuevo_descuento, name='nuevo_descuento'),
+    path('eliminar_descuento/<id>/',views.eliminar_descuento, name='eliminar_descuento'),
     #Acciones de planes mensuales
     path('eliminar_plan/<id>/', views.eliminar_plan,name='eliminar_plan'),
     #Cerrar sesion
