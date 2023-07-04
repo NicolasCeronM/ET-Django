@@ -18,6 +18,8 @@ urlpatterns = [
     path('modificar/<id>/',views.modificar_producto, name='modificar'),
     path('eliminar/<id>/',views.eliminar, name='eliminar'),
     path('eliminar_user/<id>/',views.eliminar_usuario, name='eliminar_user'),
+    #Acciones de descuento
+    path('nuevo_descuento/', views.nuevo_descuento, name='nuevo_descuento'),
     #Acciones de planes mensuales
     path('eliminar_plan/<id>/', views.eliminar_plan,name='eliminar_plan'),
     #Cerrar sesion

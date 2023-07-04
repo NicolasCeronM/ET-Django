@@ -20,57 +20,74 @@
 
     <div class="container-fluid px-4 ">
 
-        <div>
+        <div class="p-2" style=" background-color: white;">
 
-        </div>
 
-        <!--* Tabla *-->
+            <!--todo BOTONES (ENCABEZADO)-->
+            <div class="m-3">
 
-        <div class="p-3" style="background-color: white;">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#descuentoModal">
+                    <i class="fa-solid fa-plus me-2"></i>Agregar
+                </button>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Imagen</th>
-                        <th>Nombre</th>
-                        <th>Precio normal</th>
-                        <th>% de descuento</th>
-                        <th>Precio con descuento</th>
-                        <th>Fecha de termino</th>
-                    </tr>
-                </thead> 
-                    {% for producto in productos %}
-                        {% for descuento in descuentos %}
-                        
-                        {% if producto.id == descuento.producto.id %}     
+            </div>
+
+            <!--* Tabla *-->
+
+            <div class="p-3 table-responsive">
+
+                <table class="table table-striped text-center shadow">
+                    <thead>
                         <tr>
-                            <td>{{producto.id}}</td>
-                            <td class="col-1">
-                                <img src="{{producto.imagen.url}}" alt="" class="img-fluid">
-                            </td>
-                            <td>{{producto.nombre}}</td>
-                            <td>$ {{descuento.producto.precio}}</td>
-                            <td>{{descuento.pct}}%</td>
-                            <td>$ {{producto.precio}}</td>
-                            <td>{{descuento.fec_ter}}</td>
+                            <th>ID</th>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Precio normal</th>
+                            <th>% de descuento</th>
+                            <th>Precio con descuento</th>
+                            <th>Fecha de termino</th>
+                            <th>Opciones</th>
                         </tr>
-                        {% endif %}
-                        {% endfor %}
+                    </thead>
+                    {% for producto in productos %}
+                    {% for descuento in descuentos %}
+
+                    {% if producto.id == descuento.producto.id %}
+                    <tr>
+                        <td>{{producto.id}}</td>
+                        <td class="col-1">
+                            <img src="{{producto.imagen.url}}" alt="" class="img-fluid">
+                        </td>
+                        <td>{{producto.nombre}}</td>
+                        <td>$ {{descuento.producto.precio}}</td>
+                        <td>{{descuento.pct}}%</td>
+                        <td>$ {{producto.precio}}</td>
+                        <td>{{descuento.fec_ter}}</td>
+                        <td>
+                            <a href="#" onclick="eliminarProducto({{i.id}})"> <button class="btn btn-danger mb-1"><i
+                                        class="fa-solid fa-trash-can"></i></button></a>
+
+                            <a href="#"> <button class="btn btn-primary mb-1"><i
+                                        class="fa-regular fa-pen-to-square"></i></button></a>
+                        </td>
+                    </tr>
+                    {% endif %}
                     {% endfor %}
-                <tbody>
+                    {% endfor %}
+                    <tbody>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
+            </div>
         </div>
-
-
-
 
     </div>
 
 </div>
+
+{% include 'descuento/nuevo_descuento.html' %}
 
 
 

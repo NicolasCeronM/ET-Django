@@ -19,7 +19,6 @@ class Plan(models.Model):
 class Suscripcion(models.Model):
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='suscripcion')
-
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

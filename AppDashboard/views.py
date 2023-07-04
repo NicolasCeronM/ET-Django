@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from App.models import Direccion
 from AppPedidos.models import Pedido, DetallePedido
+from Appsuscripciones.models import Plan
 
 # Create your views here.
 @login_required
@@ -113,6 +114,16 @@ def modificar_direc(request,id):
 def dash_compras(request):
 
     return render(request,'Dashboards/compras.html')
+
+def suscripcion_user(request):
+
+    planes = Plan.objects.all()
+
+    data = {
+        'planes':planes
+    }
+
+    return render(request,'suscripcion/suscripcion.html',data)
 
 @login_required
 def salir(request):

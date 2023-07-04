@@ -13,6 +13,9 @@ urlpatterns = [
     path('editar_direc/<id>/', views.direc_edit, name='editar_direc'),
     path('modificar_direc/<id>/', views.modificar_direc, name='modificar_direc'),
     path('compras/',views.dash_compras,name='compras'),
+    #Suscripcion user
+    path('suscripcion/',views.suscripcion_user, name='suscripcion'),
+    #Cerrar sesion
     path('salir/',views.salir,name='salir'),
 
 ]

@@ -32,11 +32,15 @@
 
                 <a href="{% url 'dashboard:direcciones' %}" class="list-group-item list-group-item-action bg-transparent second-text
                 {% if request.path == '/dashboard/direcciones/'  %}active {% endif %}">
-                <i class="fa-solid fa-house me-2"></i>Direcciones</a>
+                    <i class="fa-solid fa-house me-2"></i>Direcciones</a>
 
                 <a href="{% url 'pedido:pedidos' %}" class="list-group-item list-group-item-action bg-transparent second-text 
                 {% if request.path == '/pedido/pedidos/' or request.path == '/pedido/' %}active {% endif %}">
                     <i class="fa-solid fa-receipt me-2"></i>Mis compras</a>
+
+                <a href="{% url 'dashboard:suscripcion' %}" class="list-group-item list-group-item-action bg-transparent second-text 
+                {% if request.path == '/dashboard/suscripcion/'%} active {% endif %}">
+                <i class="fa-solid fa-handshake me-2"></i>Suscribirse</a>
 
                 <a href="#" onclick="cerrarSesion()"
                     class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i

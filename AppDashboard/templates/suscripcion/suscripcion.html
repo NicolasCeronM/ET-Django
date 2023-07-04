@@ -1,0 +1,94 @@
+{% extends 'Dashboards/base-dash.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/plan.css' %}">
+
+<div id="page-content-wrapper">
+
+    <!-- * Boton-->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+            <h2 class="fs-2 m-0">Suscripcion</h2>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <!-- * CONTENIDO PAGINA*-->
+
+    <div class="container-fluid px-4 ">
+
+        <div class="row d-flex justify-content-center align-items-center">
+
+            {% for i in planes %}
+            <div class="pack-container m-3">
+                <div class="header">
+                    <p class="title">
+                        {{i.nombre}}
+                    </p>
+                    <div class="price-container">
+                        <span>$</span>{{i.precio}}
+                        <span>/mo</span>
+                    </div>
+                </div>
+                <div>
+                    <ul class="lists">
+                        <li class="list">
+                            <span>
+                                <svg aria-hidden="true" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.5 12.75l6 6 9-13.5" stroke-linejoin="round" stroke-linecap="round">
+                                    </path>
+                                </svg>
+                            </span>
+                            <p>
+                                -15% en final de la compra
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="button-container">
+                    <button type="button">
+                        Suscribirse
+                    </button>
+                </div>
+            </div>
+
+            {% endfor %}
+
+            
+
+        </div>
+
+
+
+
+
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block js %}
+
+{% if messages %}
+{% for m in messages %}
+<script>
+    Swal.fire({
+        'title': 'Hecho',
+        'text': '{{m}}',
+        'icon': '{{m.tags}}'
+    })
+</script>
+{% endfor %}
+{% endif %}
+
+{% endblock js %}

@@ -23,72 +23,71 @@
 
     <div class="container-fluid px-4 ">
 
-        
-        <div class="p-2" style=" background-color: white;" >
 
-        
-                <!--todo BOTONES (ENCABEZADO)-->
+        <div class="p-2" style=" background-color: white;">
+
+
+            <!--todo BOTONES (ENCABEZADO)-->
             <div class="m-3">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="fa-solid fa-plus me-2"></i>Agregar
                 </button>
-                
+
             </div>
 
             <!--todo TABLA (CUERPO)-->
 
-                <div class="col table-responsive p-3 rounded">
+            <div class="col table-responsive p-3 rounded">
 
-                    <table class="table table-striped text-center shadow">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th class="col-1">Imagen</th>
-                                <th class="col">Nombre</th>
-                                <th class="col">Descripcion</th>
-                                <th class="col-1">Seccion</th>
-                                <th class="col">Stock</th>
-                                <th class="col">Fecha de creacion</th>
-                                <th class="col">Opciones</th>
-                            </tr>
-                        </thead>
+                <table class="table table-striped text-center shadow">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th class="col-1">Imagen</th>
+                            <th class="col">Nombre</th>
+                            <th class="col">Descripcion</th>
+                            <th class="col-1">Seccion</th>
+                            <th class="col">Stock</th>
+                            <th class="col">Fecha de creacion</th>
+                            <th class="col">Opciones</th>
+                        </tr>
+                    </thead>
 
-                        <tbody>
+                    <tbody>
 
-                            {% if entity %}
-                            {% for i in entity %}
-                            <tr>
-                                <th class="">{{i.id}}</th>
-                                {% if i.imagen %}
-                                <td class="col"><img src="{{i.imagen.url}}" alt="" class="img-fluid"></td>
-                                {% endif %}
-                                <td class="col">{{i.nombre}}</td>
-                                <td class="col">{{i.descripcion}}</td>
-                                <td class="col">{{i.seccion}}</td>
-                                <td class="col">{{i.stock}}</td>
-                                <td class="col">{{i.created}}</td>
-                                <td>
-
-                                    <a href="#" onclick="eliminarProducto({{i.id}})"> <button class="btn btn-danger mb-1"><i
-                                                class="fa-solid fa-trash-can"></i></button></a>
-
-                                    <a href="{% url 'admin_page:editar' i.id%}"> <button class="btn btn-primary mb-1"><i
-                                                class="fa-regular fa-pen-to-square"></i></button></a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                            {% else %}
-                            <td colspan="8">Ningun producto creado</td>
+                        {% if entity %}
+                        {% for i in entity %}
+                        <tr>
+                            <th class="">{{i.id}}</th>
+                            {% if i.imagen %}
+                            <td class="col"><img src="{{i.imagen.url}}" alt="" class="img-fluid"></td>
                             {% endif %}
-                        </tbody>
+                            <td class="col">{{i.nombre}}</td>
+                            <td class="col">{{i.descripcion}}</td>
+                            <td class="col">{{i.seccion}}</td>
+                            <td class="col">{{i.stock}}</td>
+                            <td class="col">{{i.created}}</td>
+                            <td>
 
-                    </table>
-                </div>
+                                <a href="#" onclick="eliminarProducto({{i.id}})"> <button class="btn btn-danger mb-1"><i
+                                            class="fa-solid fa-trash-can"></i></button></a>
 
-                <div>
-                    {% include 'dash_admin/paginator.html' %}
-                </div>
+                                <a href="{% url 'admin_page:editar' i.id%}"> <button class="btn btn-primary mb-1"><i
+                                            class="fa-regular fa-pen-to-square"></i></button></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <td colspan="8">Ningun producto creado</td>
+                        {% endif %}
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div>
+                {% include 'dash_admin/paginator.html' %}
+            </div>
         </div>
 
 

@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from AppDescuento.models import Descuento
 from Appsuscripciones.models import Plan, Suscripcion
+from datetime import datetime
 
 # Create your views here.
 
@@ -226,6 +227,27 @@ def descuento(request):
         'productos':productos
     }
     return render(request,'descuento/descuento.html',data)
+
+def nuevo_descuento(request):
+
+    if request.method != 'POST':
+
+        return render(request,'descuento/descuento.html')
+    else:
+        print(request.POST.get('producto'))
+        newDesc = Descuento.objects.create(
+            pct = request.POST.get('pct'),
+            fec_ini = datetime.now().date(),
+            fec_ter = request.POST.get('fec_termino'),
+            producto_id = request.POST.get('producto'),
+        )
+
+        newDesc.save()
+        
+        messages.success(request,'Desceunto creado')
+        return redirect(to='admin_page:descuentos')
+
+
 
 def planes(request):
 

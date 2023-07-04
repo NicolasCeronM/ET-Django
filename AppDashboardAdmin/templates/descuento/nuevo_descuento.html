@@ -1,0 +1,57 @@
+<div class="modal fade" id="descuentoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo descuento</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'admin_page:nuevo_descuento' %}" method="POST" class="row">
+
+                    {% csrf_token %}
+
+                    <div class="col-lg-4">
+
+                        <div class="mb-3">
+                            <label for="producto" class="form-label">Selecione producto</label>
+                            <select name="producto" id="producto" class="form-select">
+                                <option value="">Seleccione...</option>
+                                {% for i in productos %}
+                                <option value="{{i.id}}">{{i}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-4">
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Porcentaje de descuento</label>
+                            <input type="text" class="form-control" placeholder="%" name="pct">
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-4">
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Fecha de termino</label>
+                            <input type="date" class="form-control" name="fec_termino">
+                        </div>
+
+                    </div>
+
+                    <div class=" modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success">Registrar</button>
+                    </div>
+
+
+
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
