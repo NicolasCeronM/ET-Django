@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from App.models import Direccion
 from AppPedidos.models import Pedido, DetallePedido
-from Appsuscripciones.models import Plan
+from Appsuscripciones.models import Plan, Suscripcion
 
 # Create your views here.
 @login_required
@@ -117,13 +117,38 @@ def dash_compras(request):
 
 def suscripcion_user(request):
 
+    user = User.objects.get(id=request.user.id)
+
+    suscripciones = user.suscripcion.all()
     planes = Plan.objects.all()
 
     data = {
-        'planes':planes
+        'planes':planes,
+        'suscripciones': suscripciones,
     }
 
     return render(request,'suscripcion/suscripcion.html',data)
+
+def nueva_suscripcion(request,id):
+
+    newSuscripcion = Suscripcion.objects.create(
+        user = request.user,
+        plan_id = id,
+    )
+
+    newSuscripcion.save()
+
+    return redirect(to='dashboard:suscripcion')
+
+def eliminar_suscripcion(request,id):
+
+    suscripcion = get_object_or_404(Suscripcion,id=id)
+    suscripcion.delete()
+
+    messages.success(request,'Suscripcion cancelada :(')
+
+    return redirect(to='dashboard:suscripcion')
+
 
 @login_required
 def salir(request):

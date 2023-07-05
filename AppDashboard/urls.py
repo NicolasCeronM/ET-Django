@@ -15,6 +15,8 @@ urlpatterns = [
     path('compras/',views.dash_compras,name='compras'),
     #Suscripcion user
     path('suscripcion/',views.suscripcion_user, name='suscripcion'),
+    path('nueva_suscripcion/<id>/',views.nueva_suscripcion, name='nueva_suscripcion'),
+    path('eliminar_suscripcion/<id>/',views.eliminar_suscripcion, name='eliminar_suscripcion'),
     #Cerrar sesion
     path('salir/',views.salir,name='salir'),
 

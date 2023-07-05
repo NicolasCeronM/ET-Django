@@ -30,25 +30,70 @@ def index(request):
 
 def juguestes(request):
 
+    productos = Articulo.objects.all()
+    descuentos = Descuento.objects.all()
+
+    for producto in productos:
+        for descuento in descuentos:
+            if producto == descuento.producto:
+                producto.precio = round(producto.precio - (producto.precio * descuento.pct) / 100)
+
+    data = {
+        'descuentos': descuentos,
+        'productos':productos
+    }
 
 
-    articulo = Articulo.objects.all()
-
-    return render(request, 'ProyectoEtApp/juguestes.html',{'articulos':articulo})
+    return render(request, 'ProyectoEtApp/juguestes.html',data)
 
 
 def medicamentos(request):
 
-    articulo = Articulo.objects.all()
-    return render(request, 'ProyectoEtApp/medicamentos.html',{'articulos':articulo})
+    productos = Articulo.objects.all()
+    descuentos = Descuento.objects.all()
+
+    for producto in productos:
+        for descuento in descuentos:
+            if producto == descuento.producto:
+                producto.precio = round(producto.precio - (producto.precio * descuento.pct) / 100)
+
+    data = {
+        'descuentos': descuentos,
+        'productos':productos
+    }
+    return render(request, 'ProyectoEtApp/medicamentos.html',data)
 
 def comida(request):
-    articulo = Articulo.objects.all()
-    return render(request, 'ProyectoEtApp/comida.html',{'articulos':articulo})
+    productos = Articulo.objects.all()
+    descuentos = Descuento.objects.all()
+
+    for producto in productos:
+        for descuento in descuentos:
+            if producto == descuento.producto:
+                producto.precio = round(producto.precio - (producto.precio * descuento.pct) / 100)
+
+    data = {
+        'descuentos': descuentos,
+        'productos':productos
+    }
+
+    return render(request, 'ProyectoEtApp/comida.html',data)
 
 def ropa(request):
-    articulo = Articulo.objects.all()
-    return render(request,'ProyectoEtApp/ropa.html',{'articulos':articulo})
+    productos = Articulo.objects.all()
+    descuentos = Descuento.objects.all()
+
+    for producto in productos:
+        for descuento in descuentos:
+            if producto == descuento.producto:
+                producto.precio = round(producto.precio - (producto.precio * descuento.pct) / 100)
+
+    data = {
+        'descuentos': descuentos,
+        'productos':productos
+    }
+
+    return render(request,'ProyectoEtApp/ropa.html',data)
 
 def login(request):
     pass
