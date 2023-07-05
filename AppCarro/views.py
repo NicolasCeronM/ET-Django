@@ -3,16 +3,22 @@ from .carro import Carro
 from App.models import Articulo
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from AppDescuento.models import Descuento
 
 # Create your views here.
 @login_required
 def agregar_producto(request,producto_id):
 
     carro = Carro(request)
-
     producto = Articulo.objects.get(id=producto_id)
+    descuentos = Descuento.objects.all()
 
+    for descuento in descuentos:
+        if producto == descuento.producto:
+            producto.precio = round(producto.precio - (producto.precio * descuento.pct) / 100)
+            
     carro.agregar(producto = producto)
+
 
     return redirect("dashboard:carro")
 
