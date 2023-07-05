@@ -9,17 +9,12 @@ User = get_user_model()
 class Pedido(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='pedidos')
     created_at = models.DateTimeField(auto_now_add=True)
+    total = models.IntegerField()
 
     def __str__(self):
 
         return str(self.id)
     
-    @property
-    def total(self):
-        return self.detalle_pedido_set.aggregate(
-
-            total = Sum(F('precio')*F('cantidad'), output_field=FloatField)
-        )['total']
 
     class Meta:
         db_table = 'pedidos' #Como se va a ver en la basen de datos
@@ -32,6 +27,7 @@ class DetallePedido(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     cantidad = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
+    
 
     def __str__(self):
 
