@@ -20,11 +20,14 @@ def pedidos(request):
         'pedido': pedido,
         'detalle_pedido': detalle,
     }
-    #ctx = {'pedido':pedido}
     return render(request,'Dashboards/compras.html',ctx)
 
 def procesar_pedido(request):
-    pedido = Pedido.objects.create(user=request.user)
+
+    total = importe_total_carro(request)
+    importe_total = total['importe_total_carro']
+
+    pedido = Pedido.objects.create(user=request.user,total=importe_total)
     carro = Carro(request)
 
     detalle_pedido = list()
@@ -39,7 +42,6 @@ def procesar_pedido(request):
             cantidad = value['cantidad'],
         ))
 
-    
 
     DetallePedido.objects.bulk_create(detalle_pedido)
                            
@@ -63,7 +65,8 @@ def procesar_pedido(request):
 
     messages.success(request,'El pedido se a enviado correctamente')
 
-    return render(request,'Dashboards/compras.html',ctx)
+    return redirect(to='pedido:pedidos')
+
 
 def enviar_mail(**kwargs):
 

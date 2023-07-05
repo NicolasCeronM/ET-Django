@@ -50,6 +50,11 @@
                             <th>Opciones</th>
                         </tr>
                     </thead>
+                    
+                    {% if entity %}
+                        
+                    
+                        
                     {% for descuento in entity %}
                     {% for producto in productos %}
                     
@@ -76,6 +81,9 @@
                     
                     {% endfor %}
                     {% endfor %}
+                    {% else %}
+                    <td colspan="8">Ningun descuento creado</td>
+                    {% endif %}
                     <tbody>
 
                     </tbody>
