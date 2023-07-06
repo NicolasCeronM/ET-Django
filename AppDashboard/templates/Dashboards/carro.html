@@ -86,14 +86,19 @@
 
                     <div>
                         <p>Sub total: ${{importe_total_carro}}</p>
-                        <p>Envio: $</p>
-                        <hr>
-                        <p class="">Total: ${{importe_total_carro}}</p>
+                        {% if suscripciones %}
+                            <p>Suscripcion: -15%</p>
+                            <hr>
+                            <p class="">Total: ${{toal_total}}</p>
+                        {% else %}
+                            <hr>
+                            <p class="">Total: ${{importe_total_carro}}</p>
+                        {% endif %}
                     </div>
 
 
                     {% if request.session.carro.items %}
-                        <a href="{% url 'pedido:procesar_pedido' %}">
+                        <a href="#" onclick="SusAlert()">
                             <div class="d-grid gap-2 mt-4">
                                 <button class="btn btn-primary" type="button">Comprar</button>
                             </div>
@@ -130,3 +135,38 @@
 
 
 {% endblock %}
+
+{% block js %}
+
+
+{% if suscripciones%}
+
+<script>
+function SusAlert(){
+    Swal.fire({
+            title: 'Confirmacion',
+            text: "Quieres continuar con la compra",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Si, Continuar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                window.location = ('/pedido/')
+            }
+        })
+
+
+}
+
+</script>
+   
+{% endif %}
+    
+    
+{% endblock js %}
+    

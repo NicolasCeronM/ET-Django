@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from App.models import Direccion
 from AppPedidos.models import Pedido, DetallePedido
 from Appsuscripciones.models import Plan, Suscripcion
+from AppCarro.context_processor import importe_total_carro
 
 # Create your views here.
 @login_required
@@ -33,8 +34,25 @@ def dash_usuario(request):
 
 @login_required
 def dash_carro(request):
+    user = User.objects.get(id=request.user.id)
+    suscripciones = user.suscripcion.all()    
 
-    return render(request, 'Dashboards/carro.html')
+    total = importe_total_carro(request)
+    importe_total = total['importe_total_carro']
+    toal_total=importe_total
+
+    for suscripcion in suscripciones:
+        if request.user.id == suscripcion.user.id:
+            importe_total = round(importe_total - (importe_total * 15) / 100)
+            toal_total = importe_total
+            break
+
+    data = {
+        'suscripciones': suscripciones,
+        'toal_total': toal_total,
+    }
+
+    return render(request, 'Dashboards/carro.html',data)
 
 @login_required
 def dash_direc(request):
@@ -109,6 +127,7 @@ def modificar_direc(request,id):
 
         return redirect(to='dashboard:direcciones')
 
+
 @login_required
 def dash_compras(request):
 
@@ -147,6 +166,7 @@ def eliminar_suscripcion(request,id):
     messages.success(request,'Suscripcion cancelada :(')
 
     return redirect(to='dashboard:suscripcion')
+
 
 @login_required
 def salir(request):
