@@ -41,7 +41,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Imagen</th>
+                            <th class="col" width="20px">Imagen</th>
                             <th>Nombre</th>
                             <th>Precio normal</th>
                             <th>% de descuento</th>
@@ -62,7 +62,7 @@
                     <tr>
                         <td>{{producto.id}}</td>
                         <td class="col-1">
-                            <img src="{{descuento.producto.imagen.url}}" alt="" class="img-fluid">
+                            <img src="{{descuento.producto.imagen.url}}" alt="" class="img-fluid" >
                         </td>
                         <td>{{descuento.producto.nombre}}</td>
                         <td>$ {{descuento.producto.precio}}</td>

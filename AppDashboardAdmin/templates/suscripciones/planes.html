@@ -12,7 +12,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
         <div class="d-flex align-items-center">
             <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
-            <h2 class="fs-2 m-0">Planes mensuales</h2>
+            <h2 class="fs-2 m-0">Planes y suscripciones</h2>
         </div>
     </nav>
 
@@ -20,72 +20,122 @@
 
     <div class="container-fluid px-4 ">
 
-        
-        <div class="p-2" style=" background-color: white;" >
 
-        
-                <!--todo BOTONES (ENCABEZADO)-->
+        <div class="p-2 shadow" style=" background-color: white;">
+
+            <p class="text-center fs-1 fw-light">Planes</p>
+
+
+            <!--todo BOTONES (ENCABEZADO)-->
             <div class="m-3">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                    data-bs-target="#planesModal">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#planesModal">
                     <i class="fa-solid fa-plus me-2"></i>Agregar
                 </button>
-                
+
             </div>
 
             <!--todo TABLA (CUERPO)-->
 
-                <div class="col table-responsive p-3 rounded">
+            <div class="col table-responsive p-3 rounded">
 
-                    <table class="table table-striped text-center shadow">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>Creado</th>
-                                <th>Opciones</th>
-                            </tr>
-                        </thead>
+                <table class="table table-striped text-center shadow">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Creado</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
 
-                        <tbody>
+                    <tbody>
 
-                            {% if planes %}
-                            {% for i in planes %}
-                            <tr>
-                                <th class="">{{i.id}}</th>
-                                <td class="col">{{i.nombre}}</td>
-                                <td class="col">$ {{i.precio}}</td>
-                                <td class="col">{{i.created_at}}</td>
-                                <td>
+                        {% if planes %}
+                        {% for i in planes %}
+                        <tr>
+                            <th class="">{{i.id}}</th>
+                            <td class="col">{{i.nombre}}</td>
+                            <td class="col">$ {{i.precio}}</td>
+                            <td class="col">{{i.created_at}}</td>
+                            <td>
 
-                                    <a href="#" onclick="eliminarPlan({{i.id}})" > <button class="btn btn-danger mb-1"><i
-                                                class="fa-solid fa-trash-can"></i></button></a>
+                                <a href="#" onclick="eliminarPlan({{i.id}})"> <button class="btn btn-danger mb-1"><i
+                                            class="fa-solid fa-trash-can"></i></button></a>
 
-                                    <a href="#"> <button class="btn btn-primary mb-1"><i
-                                                class="fa-regular fa-pen-to-square"></i></button></a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                            {% else %}
-                            <td colspan="8">Ningun plan creado</td>
-                            {% endif %}
-
-
-
-                        </tbody>
-
-                    </table>
-
-                    <div>
-                        {% include 'dash_admin/paginator.html' %}
-                    </div>
+                                <a href="#"> <button class="btn btn-primary mb-1"><i
+                                            class="fa-regular fa-pen-to-square"></i></button></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <td colspan="8">Ningun plan creado</td>
+                        {% endif %}
 
 
 
+                    </tbody>
 
+                </table>
 
+                <div>
+                    {% include 'dash_admin/paginator.html' %}
                 </div>
+
+            </div>
+        </div>
+
+        <div class="p-2 mt-4 shadow" style=" background-color: white;">
+            <p class="text-center fs-1 fw-light">Suscripciones</p>
+
+            <div class="col table-responsive p-3 rounded">
+
+                <table class="table table-striped text-center shadow">
+                    <thead>
+                        <tr>
+                            <th >ID</th>
+                            <th >Usuario</th>
+                            <th >Plan</th>
+                            <th >Precio</th>
+                            <th >Fecha de suscripcion</th>
+                            <th >Siguioente facturacion</th>
+                            <th >Opciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% if suscripciones %}
+                        {% for i in suscripciones %}
+                        <tr>
+                            <th class="">{{i.id}}</th>
+                            <td class="col">{{i.user.first_name}} {{i.user.last_name}}</td>
+                            <td class="col">{{i.plan.nombre}}</td>
+                            <td class="col">${{i.plan.precio}}</td>
+                            <td class="col">{{i.created_at}}</td>
+                            <td class="col">{{i.created_at}}</td>
+                            <td>
+
+                                <a href="#" > <button class="btn btn-danger mb-1"><i
+                                            class="fa-solid fa-trash-can"></i></button></a>
+
+                                <a href="#"> <button class="btn btn-primary mb-1"><i
+                                            class="fa-regular fa-pen-to-square"></i></button></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <td colspan="7">Ningun usuario suscrito</td>
+                        {% endif %}
+
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
         </div>
 
 
@@ -159,7 +209,7 @@
             text: "Eliminaras el plan con id " + id,
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',  
+            confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             cancelButtonText: 'Cancelar',
             confirmButtonText: 'Si, Borrar!',
@@ -174,7 +224,5 @@
     }
 
 </script>
-    
+
 {% endblock js %}
-    
-    

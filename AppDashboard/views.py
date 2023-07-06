@@ -109,7 +109,6 @@ def modificar_direc(request,id):
 
         return redirect(to='dashboard:direcciones')
 
-
 @login_required
 def dash_compras(request):
 
@@ -148,7 +147,6 @@ def eliminar_suscripcion(request,id):
     messages.success(request,'Suscripcion cancelada :(')
 
     return redirect(to='dashboard:suscripcion')
-
 
 @login_required
 def salir(request):

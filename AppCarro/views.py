@@ -47,4 +47,4 @@ def limpiar_carro(request):
     carro = Carro(request)
     carro.limpiar_carro()
 
-    return redirect("index")
+    return redirect("dashboard:carro")

@@ -9,7 +9,7 @@ class Plan(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Plan {self.nombre}, con precio de ${self.precio}'
+        return f'Plan {self.nombre}, con precio de ${self.precio} al mes'
     
     class Meta:
         db_table = 'plan' #Como se va a ver en la basen de datos

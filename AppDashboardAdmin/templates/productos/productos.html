@@ -43,8 +43,9 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th class="col-1">Imagen</th>
+                            <th class="col" width="20px">Imagen</th>
                             <th class="col">Nombre</th>
+                            <th class="col">Precio normal</th>
                             <th class="col">Descripcion</th>
                             <th class="col-1">Seccion</th>
                             <th class="col">Stock</th>
@@ -63,6 +64,7 @@
                             <td class="col"><img src="{{i.imagen.url}}" alt="" class="img-fluid"></td>
                             {% endif %}
                             <td class="col">{{i.nombre}}</td>
+                            <td class="col">$ {{i.precio}}</td>
                             <td class="col">{{i.descripcion}}</td>
                             <td class="col">{{i.seccion}}</td>
                             <td class="col">{{i.stock}}</td>

@@ -104,7 +104,7 @@ def productos(request):
     page = request.GET.get('page',1)
 
     try:
-        paginator = Paginator(productos,5)
+        paginator = Paginator(productos,9)
         productos = paginator.page(page)
     except:
         raise Http404
@@ -265,9 +265,11 @@ def planes(request):
 
     if request.method != 'POST':
         planes = Plan.objects.all()
+        suscripciones = Suscripcion.objects.all()
 
         data = {
-            'planes': planes
+            'planes': planes,
+            'suscripciones':suscripciones
         }
         return render(request,'suscripciones/planes.html',data)
     else:
@@ -280,9 +282,11 @@ def planes(request):
         newPlan.save()
 
         planes = Plan.objects.all()
+        suscripciones = Suscripcion.objects.all()
 
         data = {
-            'planes': planes
+            'planes': planes,
+            'suscripciones': suscripciones
         }
 
         messages.success(request,'Plan creado correctamente')
