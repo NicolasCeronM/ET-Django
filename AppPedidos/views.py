@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django. utils.html import strip_tags
 from django.contrib.auth.models import User
 from AppCarro.context_processor import importe_total_carro
+from Appsuscripciones.models import Suscripcion
 
 
 # Create your views here.
@@ -24,8 +25,16 @@ def pedidos(request):
 
 def procesar_pedido(request):
 
+    suscripciones = Suscripcion.objects.all()
+
     total = importe_total_carro(request)
     importe_total = total['importe_total_carro']
+
+    for suscripcion in suscripciones:
+        if request.user.id == suscripcion.user.id:
+            importe_total = round(importe_total - (importe_total * 15) / 100)
+            break
+            
 
     pedido = Pedido.objects.create(user=request.user,total=importe_total)
     carro = Carro(request)
