@@ -253,6 +253,36 @@ def nuevo_descuento(request):
         messages.success(request,'Desceunto creado')
         return redirect(to='admin_page:descuentos')
 
+def selc_desc(request,id):
+    if id != "":
+        descuento = Descuento.objects.get(id = id)
+        context = {"descuento": descuento}
+        return render(request, "descuento/modificar_descuento.html", context)
+    else:
+        context = {"mensaje": "Error, descuento no encontrado"}
+        return render(request, "descuento/modificar_descuento.html", context)
+
+
+def modificar_descuento(request,id):
+
+    if request.method != 'POST':
+        pass
+    else:
+
+        fec_termino = request.POST.get('fec_termino')
+        pct = request.POST.get('pct')
+
+        objDescuento = get_object_or_404(Descuento, id=id)
+
+        objDescuento.pct = pct
+        objDescuento.fec_ter = fec_termino
+
+        objDescuento.save()
+
+        messages.success(request,'Modificado correctamente')
+
+        return redirect(to='admin_page:descuentos')
+
 def eliminar_descuento(request,id):
 
     descuento = get_object_or_404(Descuento, id=id)

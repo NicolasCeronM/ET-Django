@@ -20,6 +20,8 @@ urlpatterns = [
     #Acciones de descuento
     path('nuevo_descuento/', views.nuevo_descuento, name='nuevo_descuento'),
     path('eliminar_descuento/<id>/',views.eliminar_descuento, name='eliminar_descuento'),
+    path('selec_desc/<id>/',views.selc_desc, name='selec_desc'),
+    path('modificar_descuento/<id>/',views.modificar_descuento, name='modificar_descuento'),
     #Acciones de planes mensuales
     path('eliminar_plan/<id>/', views.eliminar_plan,name='eliminar_plan'),
     #Cerrar sesion

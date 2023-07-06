@@ -73,8 +73,8 @@
                             <a href="#" onclick="eliminarDescuento({{descuento.id}})"> <button class="btn btn-danger mb-1"><i
                                         class="fa-solid fa-trash-can"></i></button></a>
 
-                            <a href="#"> <button class="btn btn-primary mb-1"><i
-                                        class="fa-regular fa-pen-to-square"></i></button></a>
+                            <a href="{% url 'admin_page:selec_desc' descuento.id %}"> 
+                                <button class="btn btn-primary mb-1" type="button"><i class="fa-regular fa-pen-to-square"></i></button></a>
                         </td>
                     </tr>
                     {% endif %}
@@ -101,6 +101,7 @@
 </div>
 
 {% include 'descuento/nuevo_descuento.html' %}
+
 
 {% endblock %}
 
