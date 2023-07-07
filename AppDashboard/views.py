@@ -8,6 +8,8 @@ from App.models import Direccion
 from AppPedidos.models import Pedido, DetallePedido
 from Appsuscripciones.models import Plan, Suscripcion
 from AppCarro.context_processor import importe_total_carro
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 # Create your views here.
 @login_required
@@ -136,13 +138,20 @@ def dash_compras(request):
 def suscripcion_user(request):
 
     user = User.objects.get(id=request.user.id)
-
     suscripciones = user.suscripcion.all()
-    planes = Plan.objects.all()
 
+    planes = Plan.objects.all()
+    if suscripciones:
+        for i in suscripciones:
+            fecha_siguiente_mes = i.created_at + relativedelta(months=1) 
+    else:
+        fecha_siguiente_mes = 0
+        
+        
     data = {
         'planes':planes,
         'suscripciones': suscripciones,
+        'fecha_siguiente_mes':fecha_siguiente_mes,
     }
 
     return render(request,'suscripcion/suscripcion.html',data)
@@ -152,6 +161,7 @@ def nueva_suscripcion(request,id):
     newSuscripcion = Suscripcion.objects.create(
         user = request.user,
         plan_id = id,
+        created_at = datetime.now()
     )
 
     newSuscripcion.save()
@@ -163,7 +173,7 @@ def eliminar_suscripcion(request,id):
     suscripcion = get_object_or_404(Suscripcion,id=id)
     suscripcion.delete()
 
-    messages.success(request,'Suscripcion cancelada :(')
+    messages.success(request,'Suscripcion cancelada')
 
     return redirect(to='dashboard:suscripcion')
 

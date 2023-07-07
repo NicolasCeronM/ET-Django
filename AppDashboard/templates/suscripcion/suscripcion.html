@@ -35,7 +35,7 @@
                 {% for i in suscripciones %}
                 <!--todo| Titulo |-->
                 <div class="">
-                    <p class="fs-2">Plan {{i.plan.nombre}}</p>
+                    <p class="fs-2">Plan "{{i.plan.nombre}}"</p>
 
                 </div>
 
@@ -44,8 +44,18 @@
                 <!--todo| Cuerpo |-->
                 <div class="col-lg-6 p-3">
 
-                    <p>Tu suscripcion termina el</p>
+                    <p>Siguiente facturación</p>
+                    
+                    {% if fecha_siguiente_mes %}
+                    
+                    <p class="fs-4">{{fecha_siguiente_mes}}</p>
+
+                    {% else %}
+
                     <p class="fs-4">{{i.created_at}}</p>
+
+                    {% endif %}
+                        
 
                 </div>
                 <div class="col-lg-6 p-3">
@@ -94,9 +104,9 @@
                         </ul>
                     </div>
                     <div class="button-container">
-                        <a href="{% url 'dashboard:nueva_suscripcion' i.id %}">
+                        <a href="#">
 
-                            <button type="button">
+                            <button type="button" onclick="agregarSuscripcion({{i.id}})">
                                 Suscribirse
                             </button>
 
@@ -105,7 +115,7 @@
                     </div>
                 </div>
                 {% endfor %}
-                
+
             {% endif %}
 
         </div>
@@ -148,6 +158,27 @@
             if (result.isConfirmed) {
 
                 window.location = ('/dashboard/eliminar_suscripcion/' + id + '/')
+            }
+        })
+
+    }
+
+    function agregarSuscripcion(id) {
+
+        Swal.fire({
+            title: 'Confirmacion',
+            text: "Quieres continuar con la compra de esta suscripcion",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Si, Comprar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                window.location = ('/dashboard/nueva_suscripcion/' + id + '/')
             }
         })
 

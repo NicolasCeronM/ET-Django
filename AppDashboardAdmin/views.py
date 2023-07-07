@@ -262,7 +262,6 @@ def selc_desc(request,id):
         context = {"mensaje": "Error, descuento no encontrado"}
         return render(request, "descuento/modificar_descuento.html", context)
 
-
 def modificar_descuento(request,id):
 
     if request.method != 'POST':
@@ -322,7 +321,16 @@ def planes(request):
         messages.success(request,'Plan creado correctamente')
 
         return render(request,'suscripciones/planes.html',data)
-    
+
+
+
+    suscripcion = get_object_or_404(Suscripcion,id=id)
+    suscripcion.delete()
+
+    messages.success(request,'Suscripcion cancelada :(')
+
+    return redirect(to='dashboard:suscripcion')
+
 def eliminar_plan(request,id):
 
     plan = get_object_or_404(Plan, id=id)

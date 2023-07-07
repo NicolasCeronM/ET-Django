@@ -19,7 +19,7 @@ class Plan(models.Model):
 class Suscripcion(models.Model):
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='suscripcion')
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField()
 
     def __str__(self):
         return f'El usuario{self.user.first_name} tiene el plan {self.plan.nombre} con un valor de {self.plan.precio}'
