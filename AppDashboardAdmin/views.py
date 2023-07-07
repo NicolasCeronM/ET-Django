@@ -353,6 +353,35 @@ def eliminar_plan(request,id):
 
     return redirect(to='admin_page:planes')
 
+def selec_plan(request,id):
+
+    if id != "":
+        plan = Plan.objects.get(id = id)
+        context = {"plan": plan}
+        return render(request, "suscripciones/modificar_plan.html", context)
+    else:
+        context = {"mensaje": "Error, descuento no encontrado"}
+        return render(request, "suscripciones/modificar_plan.html", context)
+    
+def modificar_plan(request,id):
+    if request.method != 'POST':
+        pass
+    else:
+
+        nombre = request.POST.get('nombre')
+        precio = request.POST.get('precio')
+
+        objPlan = get_object_or_404(Plan, id=id)
+
+        objPlan.nombre = nombre
+        objPlan.precio = precio
+
+        objPlan.save()
+
+        messages.success(request,'Modificado correctamente')
+
+        return redirect(to='admin_page:planes')
+
 def eliminar_suscripcion(request,id):
 
     suscripcion = get_object_or_404(Suscripcion,id=id)

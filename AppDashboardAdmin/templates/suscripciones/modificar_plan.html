@@ -1,0 +1,65 @@
+{% extends "dash_admin/base_dash_admin.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div id="page-content-wrapper">
+
+    <!-- * Boton-->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+            <h2 class="fs-2 m-0">Plan</h2>
+        </div>
+    </nav>
+
+    <div class="container-fluid px-4 ">
+
+        <div class="container p-4">
+ 
+            <form action="{% url 'admin_page:modificar_plan' plan.id %}" method="POST" class="row p-3"  style="background-color: white; ">
+
+                <p class="fs-1 text-center">Modificar Plan</p>
+
+                {% csrf_token %}
+    
+                <div class="col-12">
+    
+                    <div class="mb-3">
+                        <label for="" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" placeholder="$" name="nombre" value="{{plan.nombre}}">
+                    </div>
+    
+                </div>
+    
+                <div class="col-12">
+    
+                    <div class="mb-3">
+                        <label for="" class="form-label">Precio mensual</label>
+                        <input type="number" class="form-control" name="precio" value="{{plan.precio}}">
+                    </div>
+    
+                </div>
+    
+                <div class=" modal-footer">
+                    <a href="{% url 'admin_page:planes' %}">
+                        <button type="button" class="btn btn-danger">Cerrar</button>
+                    </a>
+                    <button type="submit" class="btn btn-success">Modificar</button>
+                </div>
+    
+    
+    
+            </form>
+    
+
+        </div>
+
+
+        
+    </div>
+</div>
+
+{% endblock %}
