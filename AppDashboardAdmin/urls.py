@@ -24,6 +24,7 @@ urlpatterns = [
     path('modificar_descuento/<id>/',views.modificar_descuento, name='modificar_descuento'),
     #Acciones de planes mensuales
     path('eliminar_plan/<id>/', views.eliminar_plan,name='eliminar_plan'),
+    path('eliminar_suscripcion/<id>/', views.eliminar_suscripcion,name='eliminar_suscripcion'),
     #Cerrar sesion
     path('salir',views.salir, name='salir'),
 ]

@@ -11,6 +11,7 @@ from django.http import Http404
 from AppDescuento.models import Descuento
 from Appsuscripciones.models import Plan, Suscripcion
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 # Create your views here.
 
@@ -296,9 +297,16 @@ def planes(request):
         planes = Plan.objects.all()
         suscripciones = Suscripcion.objects.all()
 
+        if suscripciones:
+            for i in suscripciones:
+                fecha_siguiente_mes = i.created_at + relativedelta(months=1) 
+        else:
+            fecha_siguiente_mes = 0
+
         data = {
             'planes': planes,
-            'suscripciones':suscripciones
+            'suscripciones':suscripciones,
+            'fecha_siguiente_mes':fecha_siguiente_mes
         }
         return render(request,'suscripciones/planes.html',data)
     else:
@@ -318,6 +326,12 @@ def planes(request):
             'suscripciones': suscripciones
         }
 
+        if suscripciones:
+            for i in suscripciones:
+                fecha_siguiente_mes = i.created_at + relativedelta(months=1) 
+        else:
+            fecha_siguiente_mes = 0
+
         messages.success(request,'Plan creado correctamente')
 
         return render(request,'suscripciones/planes.html',data)
@@ -336,6 +350,15 @@ def eliminar_plan(request,id):
     plan = get_object_or_404(Plan, id=id)
     plan.delete()
     messages.success(request,'Eliminado correctamente')
+
+    return redirect(to='admin_page:planes')
+
+def eliminar_suscripcion(request,id):
+
+    suscripcion = get_object_or_404(Suscripcion,id=id)
+    suscripcion.delete()
+
+    messages.success(request,'La suscripción se ha dado de baja.')
 
     return redirect(to='admin_page:planes')
 
