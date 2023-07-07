@@ -27,6 +27,7 @@ class CustomUserForm(UserCreationForm):
                 attrs={
                     'class':'form-control',
                     'placeholder':'ejemplo@ejemplo.com'
+
                 }
             ),
 

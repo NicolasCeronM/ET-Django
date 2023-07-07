@@ -98,7 +98,7 @@
 
 
                     {% if request.session.carro.items %}
-                        <a href="#" onclick="SusAlert()">
+                        <a href="{% url 'pedido:procesar_pedido' %}" >
                             <div class="d-grid gap-2 mt-4">
                                 <button class="btn btn-primary" type="button">Comprar</button>
                             </div>
