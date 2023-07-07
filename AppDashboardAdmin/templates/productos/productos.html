@@ -109,7 +109,7 @@
 
             <!--* CUERPO MODAL *-->
             <div class="container modal-body">
-                <form class="row" method="POST" action="" enctype="multipart/form-data">
+                <form class="row" method="POST" action="" enctype="multipart/form-data" id="form">
 
                     {% csrf_token %}
 
@@ -178,7 +178,7 @@
 
 
 {% block js %}
-<script src="{% static 'js/app.js' %}"></script>
+<script src="{% static 'js/validacion_producto.js' %}"></script>
 
 {% if messages %}
 {% for m in messages %}
