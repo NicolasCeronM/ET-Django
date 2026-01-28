@@ -1,4 +1,5 @@
 Django 
 Pillow 
 crispy-bootstrap5
+python-dateutil
 
